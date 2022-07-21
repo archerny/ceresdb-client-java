@@ -37,7 +37,7 @@ import com.codahale.metrics.Timer;
 public class SerializingExecutor implements Executor {
 
     private static final Logger                   LOG                  = LoggerFactory
-                                                                           .getLogger(SerializingExecutor.class);
+            .getLogger(SerializingExecutor.class);
 
     private static final int                      QUEUE_SIZE_THRESHOLD = 512;
 

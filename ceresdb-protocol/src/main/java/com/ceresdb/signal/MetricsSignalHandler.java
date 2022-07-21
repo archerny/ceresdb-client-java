@@ -58,9 +58,9 @@ public class MetricsSignalHandler implements SignalHandler {
 
             try (PrintStream out = new PrintStream(new FileOutputStream(file, true))) {
                 final MetricReporter reporter = MetricReporter.forRegistry(MetricsUtil.metricRegistry()) //
-                    .outputTo(out) //
-                    .prefixedWith("-- CeresDB") //
-                    .build();
+                        .outputTo(out) //
+                        .prefixedWith("-- CeresDB") //
+                        .build();
                 reporter.report();
                 out.flush();
             }

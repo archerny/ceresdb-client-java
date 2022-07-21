@@ -197,7 +197,7 @@ public class CeresDBxOptions implements Copiable<CeresDBxOptions> {
      */
     public static Builder newBuilder(final String clusterHost, final int clusterPort, final int managementPort) {
         return new Builder(Endpoint.of(clusterHost, clusterPort)) //
-            .managementAddress(Endpoint.of(clusterHost, managementPort));
+                .managementAddress(Endpoint.of(clusterHost, managementPort));
     }
 
     public static final class Builder {

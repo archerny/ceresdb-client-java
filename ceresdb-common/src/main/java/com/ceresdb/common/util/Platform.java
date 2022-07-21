@@ -69,7 +69,7 @@ public class Platform {
 
     private static boolean checkOS(final String osKey) {
         return SystemPropertyUtil.get(OptKeys.OS_NAME, "") //
-            .toLowerCase(Locale.US) //
-            .contains(osKey);
+                .toLowerCase(Locale.US) //
+                .contains(osKey);
     }
 }

@@ -181,8 +181,6 @@ public interface RpcClient extends Lifecycle<RpcOptions>, Display {
      * @param <Resp>        response message type
      * @return request {@link Observer}.
      */
-    <Req, Resp> Observer<Req> invokeClientStreaming(final Endpoint endpoint,
-                                                    final Req defaultReqIns,
-                                                    final Context ctx,
+    <Req, Resp> Observer<Req> invokeClientStreaming(final Endpoint endpoint, final Req defaultReqIns, final Context ctx,
                                                     final Observer<Resp> respObserver) throws RemotingException;
 }

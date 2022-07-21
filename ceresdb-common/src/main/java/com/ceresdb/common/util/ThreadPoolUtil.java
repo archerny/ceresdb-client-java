@@ -70,8 +70,7 @@ public final class ThreadPoolUtil {
      */
     public static ThreadPoolExecutor newThreadPool(final String poolName, final boolean enableMetric,
                                                    final int coreThreads, final int maximumThreads,
-                                                   final long keepAliveSeconds,
-                                                   final BlockingQueue<Runnable> workQueue,
+                                                   final long keepAliveSeconds, final BlockingQueue<Runnable> workQueue,
                                                    final ThreadFactory threadFactory) {
         return newThreadPool(poolName, enableMetric, coreThreads, maximumThreads, keepAliveSeconds, workQueue,
             threadFactory, defaultHandler);
@@ -105,8 +104,7 @@ public final class ThreadPoolUtil {
      */
     public static ThreadPoolExecutor newThreadPool(final String poolName, final boolean enableMetric,
                                                    final int coreThreads, final int maximumThreads,
-                                                   final long keepAliveSeconds,
-                                                   final BlockingQueue<Runnable> workQueue,
+                                                   final long keepAliveSeconds, final BlockingQueue<Runnable> workQueue,
                                                    final ThreadFactory threadFactory,
                                                    final RejectedExecutionHandler rejectedHandler) {
         final TimeUnit unit = TimeUnit.SECONDS;
@@ -233,8 +231,8 @@ public final class ThreadPoolUtil {
             Requires.requireNonNull(this.threadFactory, "threadFactory");
             Requires.requireNonNull(this.handler, "handler");
 
-            return ThreadPoolUtil.newThreadPool(this.poolName, this.enableMetric, this.coreThreads,
-                this.maximumThreads, this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
+            return ThreadPoolUtil.newThreadPool(this.poolName, this.enableMetric, this.coreThreads, this.maximumThreads,
+                this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
         }
     }
 

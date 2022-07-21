@@ -256,8 +256,8 @@ public class MetricReporter {
         this.durationFactor = durationUnit.toNanos(1);
         this.durationUnit = durationUnit.toString().toLowerCase(Locale.US);
         this.filter = filter;
-        this.disabledMetricAttributes = disabledMetricAttributes != null ? disabledMetricAttributes : Collections
-            .emptySet();
+        this.disabledMetricAttributes = disabledMetricAttributes != null ? disabledMetricAttributes
+            : Collections.emptySet();
     }
 
     @SuppressWarnings("rawtypes")

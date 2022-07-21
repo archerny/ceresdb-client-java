@@ -92,7 +92,7 @@ public class GrpcClient implements RpcClient {
     private static final Logger                LOG                   = LoggerFactory.getLogger(GrpcClient.class);
 
     private static final SharedThreadPool      SHARED_ASYNC_POOL     = new SharedThreadPool(
-                                                                         new ObjectPool.Resource<ExecutorService>() {
+        new ObjectPool.Resource<ExecutorService>() {
 
                                                                              @Override
                                                                              public ExecutorService create() {
@@ -102,12 +102,13 @@ public class GrpcClient implements RpcClient {
                                                                              @Override
                                                                              public void close(final ExecutorService ins) {
                                                                                  ExecutorServiceHelper
-                                                                                     .shutdownAndAwaitTermination(ins);
+                                                                                         .shutdownAndAwaitTermination(
+                                                                                             ins);
                                                                              }
                                                                          });
 
-    private static final int                   CONN_RESET_THRESHOLD  = SystemPropertyUtil.getInt(
-                                                                         OptKeys.GRPC_CONN_RESET_THRESHOLD, 3);
+    private static final int                   CONN_RESET_THRESHOLD  = SystemPropertyUtil
+            .getInt(OptKeys.GRPC_CONN_RESET_THRESHOLD, 3);
     private static final int                   MAX_SIZE_TO_USE_ARRAY = 8192;
     private static final String                LIMITER_NAME          = "grpc_call";
     private static final String                EXECUTOR_NAME         = "grpc_executor";
@@ -233,12 +234,11 @@ public class GrpcClient implements RpcClient {
                                         final long timeoutMs) {
         checkArgs(endpoint, request, ctx, observer);
 
-        final MethodDescriptor<Message, Message> method = getCallMethod(request,
-            MethodDescriptor.MethodType.UNARY);
+        final MethodDescriptor<Message, Message> method = getCallMethod(request, MethodDescriptor.MethodType.UNARY);
         final long timeout = calcTimeout(timeoutMs);
         final CallOptions callOpts = CallOptions.DEFAULT //
-            .withDeadlineAfter(timeout, TimeUnit.MILLISECONDS) //
-            .withExecutor(getObserverExecutor(observer));
+                .withDeadlineAfter(timeout, TimeUnit.MILLISECONDS) //
+                .withExecutor(getObserverExecutor(observer));
 
         final String childTenant = addChildTenantIntoCtx(ctx);
         final String methodName = method.getFullMethodName();
@@ -469,8 +469,7 @@ public class GrpcClient implements RpcClient {
                 throw new IllegalArgumentException("Unsupported limit kind: " + kind);
         }
 
-        final RequestLimiterBuilder limiterBuilder = RequestLimiterBuilder.newBuilder()
-                .named(LIMITER_NAME) //
+        final RequestLimiterBuilder limiterBuilder = RequestLimiterBuilder.newBuilder().named(LIMITER_NAME) //
                 .metricRegistry(metricRegistry) //
                 .blockOnLimit(this.opts.isBlockOnLimit(), this.opts.getDefaultRpcTimeout()) //
                 .limit(limit);
@@ -486,7 +485,8 @@ public class GrpcClient implements RpcClient {
             Requires.requireTrue(Math.abs(sum - 1.0) < 0.1, "the total percent sum of partitions must be near 100%");
             methodsLimitPercent.forEach(limiterBuilder::partition);
 
-            return new ClientRequestLimitInterceptor(limiterBuilder.partitionByMethod().build(), methodsLimitPercent::containsKey);
+            return new ClientRequestLimitInterceptor(limiterBuilder.partitionByMethod().build(),
+                methodsLimitPercent::containsKey);
         }
     }
 
@@ -499,26 +499,26 @@ public class GrpcClient implements RpcClient {
                               final long duration, //
                               final Context ctx) {
         final StringBuilder buf = StringBuilderHelper.get() //
-            .append("GRPC ") //
-            .append(callType) //
-            .append(" got an error,") //
-            .append(" method=") //
-            .append(method) //
-            .append(", tenant=") //
-            .append(this.tenant) //
-            .append(", childTenant=") //
-            .append(childTenant != null ? childTenant : this.defaultChildTenant) //
-            .append(", target=") //
-            .append(target) //
-            .append(", startCall=") //
-            .append(startCall);
+                .append("GRPC ") //
+                .append(callType) //
+                .append(" got an error,") //
+                .append(" method=") //
+                .append(method) //
+                .append(", tenant=") //
+                .append(this.tenant) //
+                .append(", childTenant=") //
+                .append(childTenant != null ? childTenant : this.defaultChildTenant) //
+                .append(", target=") //
+                .append(target) //
+                .append(", startCall=") //
+                .append(startCall);
         if (duration > 0) {
             buf.append(", duration=") //
-                .append(duration) //
-                .append(" millis");
+                    .append(duration) //
+                    .append(" millis");
         }
         buf.append(", ctx=") //
-            .append(ctx);
+                .append(ctx);
         err.addSuppressed(new OnlyErrorMessage(buf.toString()));
     }
 
@@ -621,12 +621,12 @@ public class GrpcClient implements RpcClient {
         Requires.requireNonNull(defaultRespIns, "null default response instance: " + reqCls.getName());
 
         return MethodDescriptor //
-            .<Message, Message> newBuilder() //
-            .setType(methodType) //
-            .setFullMethodName(this.marshallerRegistry.getMethodName(reqCls, methodType)) //
-            .setRequestMarshaller(ProtoUtils.marshaller(defaultReqIns)) //
-            .setResponseMarshaller(ProtoUtils.marshaller(defaultRespIns)) //
-            .build();
+                .<Message, Message> newBuilder() //
+                .setType(methodType) //
+                .setFullMethodName(this.marshallerRegistry.getMethodName(reqCls, methodType)) //
+                .setRequestMarshaller(ProtoUtils.marshaller(defaultReqIns)) //
+                .setResponseMarshaller(ProtoUtils.marshaller(defaultRespIns)) //
+                .build();
     }
 
     private Channel getCheckedChannel(final Endpoint endpoint, final Consumer<Throwable> onFailed) {
@@ -651,18 +651,18 @@ public class GrpcClient implements RpcClient {
 
     private IdChannel newChannel(final Endpoint endpoint) {
         final ManagedChannel innerChannel = NettyChannelBuilder.forAddress(endpoint.getIp(), endpoint.getPort()) //
-            .usePlaintext() //
-            .executor(this.asyncPool) //
-            .intercept(this.interceptors) //
-            .maxInboundMessageSize(this.opts.getMaxInboundMessageSize()) //
-            .flowControlWindow(this.opts.getFlowControlWindow()) //
-            .idleTimeout(this.opts.getIdleTimeoutSeconds(), TimeUnit.SECONDS) //
-            .keepAliveTime(this.opts.getKeepAliveTimeSeconds(), TimeUnit.SECONDS) //
-            .keepAliveTimeout(this.opts.getKeepAliveTimeoutSeconds(), TimeUnit.SECONDS) //
-            .keepAliveWithoutCalls(this.opts.isKeepAliveWithoutCalls()) //
-            .withOption(ChannelOption.SO_REUSEADDR, true) //
-            .withOption(ChannelOption.TCP_NODELAY, true) //
-            .build();
+                .usePlaintext() //
+                .executor(this.asyncPool) //
+                .intercept(this.interceptors) //
+                .maxInboundMessageSize(this.opts.getMaxInboundMessageSize()) //
+                .flowControlWindow(this.opts.getFlowControlWindow()) //
+                .idleTimeout(this.opts.getIdleTimeoutSeconds(), TimeUnit.SECONDS) //
+                .keepAliveTime(this.opts.getKeepAliveTimeSeconds(), TimeUnit.SECONDS) //
+                .keepAliveTimeout(this.opts.getKeepAliveTimeoutSeconds(), TimeUnit.SECONDS) //
+                .keepAliveWithoutCalls(this.opts.isKeepAliveWithoutCalls()) //
+                .withOption(ChannelOption.SO_REUSEADDR, true) //
+                .withOption(ChannelOption.TCP_NODELAY, true) //
+                .build();
 
         final IdChannel idChannel = new IdChannel(innerChannel);
 
@@ -723,20 +723,20 @@ public class GrpcClient implements RpcClient {
     @Override
     public void display(final Printer out) {
         out.println("--- GrpcClient ---")//
-            .print("started=") //
-            .println(this.started) //
-            .print("opts=") //
-            .println(this.opts) //
-            .print("connectionObservers=") //
-            .println(this.connectionObservers) //
-            .print("asyncPool=") //
-            .println(this.asyncPool) //
-            .print("interceptors=") //
-            .println(this.interceptors) //
-            .print("managedChannelPool=") //
-            .println(this.managedChannelPool) //
-            .print("transientFailures=") //
-            .println(this.transientFailures);
+                .print("started=") //
+                .println(this.started) //
+                .print("opts=") //
+                .println(this.opts) //
+                .print("connectionObservers=") //
+                .println(this.connectionObservers) //
+                .print("asyncPool=") //
+                .println(this.asyncPool) //
+                .print("interceptors=") //
+                .println(this.interceptors) //
+                .print("managedChannelPool=") //
+                .println(this.managedChannelPool) //
+                .print("transientFailures=") //
+                .println(this.transientFailures);
     }
 
     private static String target(final Channel ch, final Endpoint ep) {
@@ -745,12 +745,12 @@ public class GrpcClient implements RpcClient {
 
     private static String target(final Channel ch, final String address) {
         return StringBuilderHelper.get() //
-            .append('[') //
-            .append(channelId(ch)) //
-            .append('/') //
-            .append(address) //
-            .append(']') //
-            .toString();
+                .append('[') //
+                .append(channelId(ch)) //
+                .append('/') //
+                .append(address) //
+                .append(']') //
+                .toString();
     }
 
     private static long channelId(final Channel ch) {
@@ -782,29 +782,29 @@ public class GrpcClient implements RpcClient {
         }
 
         return ThreadPoolUtil.newBuilder() //
-            .poolName(EXECUTOR_NAME) //
-            .enableMetric(true) //
-            .coreThreads(Math.min(Cpus.cpus(), opts.getRpcThreadPoolSize())) //
-            .maximumThreads(opts.getRpcThreadPoolSize()) //
-            .keepAliveSeconds(60L) //
-            .workQueue(workQueue) //
-            .threadFactory(new NamedThreadFactory(EXECUTOR_NAME, true)) //
-            .rejectedHandler(new AsyncPoolRejectedHandler(EXECUTOR_NAME)) //
-            .build();
+                .poolName(EXECUTOR_NAME) //
+                .enableMetric(true) //
+                .coreThreads(Math.min(Cpus.cpus(), opts.getRpcThreadPoolSize())) //
+                .maximumThreads(opts.getRpcThreadPoolSize()) //
+                .keepAliveSeconds(60L) //
+                .workQueue(workQueue) //
+                .threadFactory(new NamedThreadFactory(EXECUTOR_NAME, true)) //
+                .rejectedHandler(new AsyncPoolRejectedHandler(EXECUTOR_NAME)) //
+                .build();
     }
 
     private static ExecutorService createDefaultRpcExecutor() {
         final String name = "default_shared_" + EXECUTOR_NAME;
         return ThreadPoolUtil.newBuilder() //
-            .poolName(name) //
-            .enableMetric(true) //
-            .coreThreads(Cpus.cpus()) //
-            .maximumThreads(Cpus.cpus() << 2) //
-            .keepAliveSeconds(60L) //
-            .workQueue(new ArrayBlockingQueue<>(512)) //
-            .threadFactory(new NamedThreadFactory(name, true)) //
-            .rejectedHandler(new AsyncPoolRejectedHandler(name)) //
-            .build();
+                .poolName(name) //
+                .enableMetric(true) //
+                .coreThreads(Cpus.cpus()) //
+                .maximumThreads(Cpus.cpus() << 2) //
+                .keepAliveSeconds(60L) //
+                .workQueue(new ArrayBlockingQueue<>(512)) //
+                .threadFactory(new NamedThreadFactory(name, true)) //
+                .rejectedHandler(new AsyncPoolRejectedHandler(name)) //
+                .build();
     }
 
     private static class AsyncPoolRejectedHandler implements RejectedExecutionHandler {

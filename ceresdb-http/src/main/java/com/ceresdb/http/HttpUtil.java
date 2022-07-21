@@ -38,10 +38,10 @@ public class HttpUtil {
 
     public static final String        PROTOCOL         = "http";
 
-    private static final long         READ_TIMEOUT_MS  = SystemPropertyUtil
-                                                           .getLong(OptKeys.HTTP_READ_TIMEOUT_MS, 10000);
+    private static final long         READ_TIMEOUT_MS  = SystemPropertyUtil.getLong(OptKeys.HTTP_READ_TIMEOUT_MS,
+        10000);
     private static final long         WRITE_TIMEOUT_MS = SystemPropertyUtil.getLong(OptKeys.HTTP_WRITE_TIMEOUT_MS,
-                                                           10000);
+        10000);
 
     private static final MediaType    JSON_MEDIA_TYPE  = MediaType.parse("application/json; charset=utf-8");
 
@@ -49,10 +49,10 @@ public class HttpUtil {
     //
     // Shutdown isn’t necessary, the threads and connections that
     // are held will be released automatically if they remain idle.
-    private static final OkHttpClient OK_HTTP_CLIENT   = new OkHttpClient.Builder() //
-                                                           .readTimeout(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS) //
-                                                           .writeTimeout(WRITE_TIMEOUT_MS, TimeUnit.MILLISECONDS) //
-                                                           .build();
+    private static final OkHttpClient OK_HTTP_CLIENT   = new OkHttpClient.Builder()                               //
+            .readTimeout(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)                                                  //
+            .writeTimeout(WRITE_TIMEOUT_MS, TimeUnit.MILLISECONDS)                                                //
+            .build();
 
     public static OkHttpClient httpClient() {
         return OK_HTTP_CLIENT;
@@ -62,7 +62,8 @@ public class HttpUtil {
         return params(key, val, HashMap::new);
     }
 
-    public static Map<String, String> params(final String key, final String val, final Supplier<Map<String, String>> ctx) {
+    public static Map<String, String> params(final String key, final String val,
+                                             final Supplier<Map<String, String>> ctx) {
         final Map<String, String> map = ctx.get();
         map.put(key, val);
         return map;

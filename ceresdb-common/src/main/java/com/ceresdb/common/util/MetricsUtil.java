@@ -45,22 +45,22 @@ public final class MetricsUtil {
 
     static {
         final ScheduledExecutorService scheduledPool = ThreadPoolUtil.newScheduledBuilder() //
-            .enableMetric(true) //
-            .coreThreads(1) //
-            .poolName("metrics.reporter") //
-            .threadFactory(new NamedThreadFactory("metrics.reporter", true)) //
-            .build();
+                .enableMetric(true) //
+                .coreThreads(1) //
+                .poolName("metrics.reporter") //
+                .threadFactory(new NamedThreadFactory("metrics.reporter", true)) //
+                .build();
         SCHEDULED_REPORTER = createReporter(scheduledPool);
     }
 
     private static ScheduledReporter createReporter(final ScheduledExecutorService scheduledPool) {
         try {
             return Slf4jReporter.forRegistry(MetricsUtil.METRIC_REGISTRY) //
-                .withLoggingLevel(Slf4jReporter.LoggingLevel.INFO) //
-                .outputTo(LOG) //
-                .scheduleOn(scheduledPool) //
-                .shutdownExecutorOnStop(true) //
-                .build();
+                    .withLoggingLevel(Slf4jReporter.LoggingLevel.INFO) //
+                    .outputTo(LOG) //
+                    .scheduleOn(scheduledPool) //
+                    .shutdownExecutorOnStop(true) //
+                    .build();
         } catch (final Throwable ex) {
             LOG.warn("Fail to create metrics reporter.", ex);
             return null;

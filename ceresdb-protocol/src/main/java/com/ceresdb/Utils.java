@@ -75,15 +75,15 @@ public final class Utils {
     static {
         RW_LOGGING = new AtomicBoolean(SystemPropertyUtil.getBool(OptKeys.RW_LOGGING, true));
         REPORT_PERIOD_MIN = SystemPropertyUtil.getInt(OptKeys.REPORT_PERIOD, 30);
-        DISPLAY = ThreadPoolUtil.newScheduledBuilder()
-                .poolName("display_self") //
+        DISPLAY = ThreadPoolUtil.newScheduledBuilder().poolName("display_self") //
                 .coreThreads(1) //
                 .enableMetric(true) //
                 .threadFactory(new NamedThreadFactory("display_self", true)) //
                 .rejectedHandler(new ThreadPoolExecutor.DiscardOldestPolicy()) //
                 .build();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> ExecutorServiceHelper.shutdownAndAwaitTermination(DISPLAY)));
+        Runtime.getRuntime()
+                .addShutdownHook(new Thread(() -> ExecutorServiceHelper.shutdownAndAwaitTermination(DISPLAY)));
     }
 
     /**
@@ -197,9 +197,7 @@ public final class Utils {
 
         if (code == Result.SUCCESS) {
             final Set<String> metrics = rows != null && WriteOk.isCollectWroteDetail()
-                ? rows.stream()
-                    .map(Rows::getMetric)
-                    .collect(Collectors.toSet())
+                ? rows.stream().map(Rows::getMetric).collect(Collectors.toSet())
                 : null;
             return WriteOk.ok(success, failed, metrics).mapToResult();
         } else {
@@ -220,17 +218,14 @@ public final class Utils {
     public static Result<QueryOk, Err> toResult(final Storage.QueryResponse resp, //
                                                 final String ql, //
                                                 final Endpoint to, //
-                                                final Collection<String> metrics,
-                                                final Runnable errHandler) {
+                                                final Collection<String> metrics, final Runnable errHandler) {
         final Common.ResponseHeader header = resp.getHeader();
         final int code = header.getCode();
         final String msg = header.getError();
 
         if (code == Result.SUCCESS) {
             final int rowCount = resp.getRowsCount();
-            final Stream<byte[]> rows = resp.getRowsList()
-                .stream()
-                .map(ByteStringHelper::sealByteArray);
+            final Stream<byte[]> rows = resp.getRowsList().stream().map(ByteStringHelper::sealByteArray);
             return QueryOk.ok(ql, toSchema(resp), rowCount, rows).mapToResult();
         } else {
             if (errHandler != null) {
@@ -303,10 +298,10 @@ public final class Utils {
     public static Map<Endpoint, Collection<Rows>> splitDataByRoute(final Collection<Rows> data, //
                                                                    final Map<String /* metric */, Route> routes) {
         final Map<Endpoint, Collection<Rows>> splits = routes.values() //
-            .stream() //
-            .map(Route::getEndpoint) //
-            .distinct() //
-            .collect(Collectors.toMap(k -> k, k -> Spines.newBuf(), (v1, v2) -> v1));
+                .stream() //
+                .map(Route::getEndpoint) //
+                .distinct() //
+                .collect(Collectors.toMap(k -> k, k -> Spines.newBuf(), (v1, v2) -> v1));
         if (splits.size() == 1) {
             // fast path, zero copy
             splits.replaceAll((ep, empty) -> data);

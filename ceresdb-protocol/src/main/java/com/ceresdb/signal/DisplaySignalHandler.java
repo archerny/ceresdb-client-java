@@ -64,8 +64,8 @@ public class DisplaySignalHandler implements SignalHandler {
             LOG.info("Displaying CeresDBx clients triggered by signal: {} to file: {}.", signalName,
                 file.getAbsoluteFile());
 
-            try (PrintWriter out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(file, true),
-                StandardCharsets.UTF_8))) {
+            try (PrintWriter out = new PrintWriter(
+                new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
                 final Display.Printer printer = new Display.DefaultPrinter(out);
                 for (final CeresDBxClient ins : instances) {
                     ins.display(printer);

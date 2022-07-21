@@ -62,8 +62,7 @@ public class AuthHeadersInterceptor implements ClientInterceptor {
     }
 
     private final class HeaderAttachingClientCall<ReqT, RespT>
-                                                               extends
-                                                               ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT> {
+                                                 extends ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT> {
 
         // Non private to avoid synthetic class
         HeaderAttachingClientCall(ClientCall<ReqT, RespT> call) {

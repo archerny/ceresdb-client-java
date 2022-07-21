@@ -28,8 +28,8 @@ final class UnsafeIntegerFieldUpdater<U> implements IntegerFieldUpdater<U> {
     private final long            offset;
     private final sun.misc.Unsafe unsafe;
 
-    UnsafeIntegerFieldUpdater(sun.misc.Unsafe unsafe, Class<? super U> tClass, String fieldName)
-                                                                                                throws NoSuchFieldException {
+    UnsafeIntegerFieldUpdater(sun.misc.Unsafe unsafe, Class<? super U> tClass,
+                              String fieldName) throws NoSuchFieldException {
         final Field field = tClass.getDeclaredField(fieldName);
         if (unsafe == null) {
             throw new NullPointerException("unsafe");

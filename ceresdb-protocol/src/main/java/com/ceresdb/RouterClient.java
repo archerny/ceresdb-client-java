@@ -73,11 +73,10 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
     private static final int                   ITEM_COUNT_EACH_REFRESH   = 512;
     private static final long                  BLOCKING_ROUTE_TIMEOUT_MS = 3000;
 
-    private static final SharedScheduledPool   CLEANER_POOL              = Utils.getSharedScheduledPool(
-                                                                             "route_cache_cleaner", 1);
-    private static final SharedScheduledPool   REFRESHER_POOL            = Utils.getSharedScheduledPool(
-                                                                             "route_cache_refresher",
-                                                                             Math.min(4, Cpus.cpus()));
+    private static final SharedScheduledPool   CLEANER_POOL              = Utils
+            .getSharedScheduledPool("route_cache_cleaner", 1);
+    private static final SharedScheduledPool   REFRESHER_POOL            = Utils
+            .getSharedScheduledPool("route_cache_refresher", Math.min(4, Cpus.cpus()));
 
     private ScheduledExecutorService           cleaner;
     private ScheduledExecutorService           refresher;
@@ -153,7 +152,8 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         final long refreshPeriod = this.opts.getRefreshPeriodSeconds();
         if (refreshPeriod > 0) {
             this.refresher = REFRESHER_POOL.getObject();
-            this.refresher.scheduleWithFixedDelay(this::refresh, Utils.randomInitialDelay(180), refreshPeriod, TimeUnit.SECONDS);
+            this.refresher.scheduleWithFixedDelay(this::refresh, Utils.randomInitialDelay(180), refreshPeriod,
+                TimeUnit.SECONDS);
 
             LOG.info("Route table cache refresher has been started.");
         }
@@ -208,39 +208,38 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         }
 
         return routeRefreshFor(misses) // refresh from remote
-            .thenApply(remote -> { // then merge result
-                final Map<String, Route> ret;
-                if (remote.size() > local.size()) {
-                    remote.putAll(local);
-                    ret = remote;
-                } else {
-                    local.putAll(remote);
-                    ret = local;
-                }
-                return ret;
-            }) //
-            .thenApply(hits -> { // update cache hits
-                final long now = Clock.defaultClock().getTick();
-                hits.values().forEach(route -> route.tryWeekSetHit(now));
-                return hits;
-            });
+                .thenApply(remote -> { // then merge result
+                    final Map<String, Route> ret;
+                    if (remote.size() > local.size()) {
+                        remote.putAll(local);
+                        ret = remote;
+                    } else {
+                        local.putAll(remote);
+                        ret = local;
+                    }
+                    return ret;
+                }) //
+                .thenApply(hits -> { // update cache hits
+                    final long now = Clock.defaultClock().getTick();
+                    hits.values().forEach(route -> route.tryWeekSetHit(now));
+                    return hits;
+                });
     }
 
     public CompletableFuture<Map<String, Route>> routeRefreshFor(final Collection<String> metrics) {
         final long startCall = Clock.defaultClock().getTick();
-        return this.router.routeFor(metrics)
-            .whenComplete((remote, err) -> {
-                if (err == null) {
-                    this.routeCache.putAll(remote);
-                    this.metrics.refreshedSize().update(remote.size());
-                    this.metrics.cachedSize().update(this.routeCache.size());
-                    this.metrics.refreshTimer().update(Clock.defaultClock().duration(startCall), TimeUnit.MILLISECONDS);
+        return this.router.routeFor(metrics).whenComplete((remote, err) -> {
+            if (err == null) {
+                this.routeCache.putAll(remote);
+                this.metrics.refreshedSize().update(remote.size());
+                this.metrics.cachedSize().update(this.routeCache.size());
+                this.metrics.refreshTimer().update(Clock.defaultClock().duration(startCall), TimeUnit.MILLISECONDS);
 
-                    LOG.info("Route refreshed: {}, cached_size={}.", metrics, this.routeCache.size());
-                } else {
-                    LOG.warn("Route refresh failed: {}.", metrics, err);
-                }
-            });
+                LOG.info("Route refreshed: {}, cached_size={}.", metrics, this.routeCache.size());
+            } else {
+                LOG.warn("Route refresh failed: {}.", metrics, err);
+            }
+        });
     }
 
     private void blockingRouteRefreshFor(final Collection<String> metrics) {
@@ -297,7 +296,7 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         }
 
         LOG.warn("Now that the number of cached entries [{}] is about to exceed its limit [{}], we need to clean up.", //
-                this.routeCache.size(), this.opts.getMaxCachedSize());
+            this.routeCache.size(), this.opts.getMaxCachedSize());
 
         final int itemsToGC = (int) (this.routeCache.size() * CLEAN_THRESHOLD);
         if (itemsToGC <= 0) {
@@ -306,12 +305,12 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         }
 
         final List<String> topK = TopKSelector.selectTopK( //
-                this.routeCache.entrySet(), //
-                itemsToGC, //
-                (o1, o2) -> -Long.compare(o1.getValue().getLastHit(), o2.getValue().getLastHit()) //
+            this.routeCache.entrySet(), //
+            itemsToGC, //
+            (o1, o2) -> -Long.compare(o1.getValue().getLastHit(), o2.getValue().getLastHit()) //
         ) //
-        .map(Map.Entry::getKey) //
-        .collect(Collectors.toList());
+                .map(Map.Entry::getKey) //
+                .collect(Collectors.toList());
 
         this.metrics.gcItems().update(topK.size());
 
@@ -385,10 +384,7 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
     }
 
     private Collection<Endpoint> reserveAddresses() {
-        return this.routeCache.values()
-                .stream()
-                .map(Route::getEndpoint)
-                .collect(Collectors.toSet());
+        return this.routeCache.values().stream().map(Route::getEndpoint).collect(Collectors.toSet());
     }
 
     private boolean checkConn(final Endpoint endpoint, final boolean create) {
@@ -398,10 +394,10 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
     @Override
     public void display(final Printer out) {
         out.println("--- RouterClient ---") //
-            .print("opts=") //
-            .println(this.opts) //
-            .print("routeCache.size=") //
-            .println(this.routeCache.size());
+                .print("opts=") //
+                .println(this.opts) //
+                .print("routeCache.size=") //
+                .println(this.routeCache.size());
 
         if (this.rpcClient != null) {
             out.println("");
@@ -432,16 +428,13 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
                 return Utils.completedCf(Collections.emptyMap());
             }
 
-            final Storage.RouteRequest req = Storage.RouteRequest.newBuilder()
-                    .addAllMetrics(request)
-                    .build();
+            final Storage.RouteRequest req = Storage.RouteRequest.newBuilder().addAllMetrics(request).build();
             final Context ctx = Context.of("call_priority", "100"); // Mysterious trick!!! ＼（＾▽＾）／
             final CompletableFuture<Storage.RouteResponse> f = invokeRpc(req, ctx);
 
             return f.thenCompose(resp -> {
                 if (Utils.isSuccess(resp.getHeader())) {
-                    final Map<String, Route> ret = resp.getRoutesList()
-                            .stream()
+                    final Map<String, Route> ret = resp.getRoutesList().stream()
                             .collect(Collectors.toMap(Storage.Route::getMetric, this::toRouteObj));
                     return Utils.completedCf(ret);
                 }

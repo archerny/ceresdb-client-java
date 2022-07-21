@@ -60,7 +60,8 @@ public class WriteLimitTest {
 
         Assert.assertFalse(ret.isOk());
         Assert.assertEquals(Result.FLOW_CONTROL, ret.getErr().getCode());
-        Assert.assertEquals("Write limited by client, acquirePermits=4, maxPermits=1, availablePermits=0.", ret.getErr().getError());
+        Assert.assertEquals("Write limited by client, acquirePermits=4, maxPermits=1, availablePermits=0.",
+            ret.getErr().getError());
     }
 
     @Test
@@ -95,7 +96,7 @@ public class WriteLimitTest {
     public void blockingTimeoutWriteLimitTest() throws ExecutionException, InterruptedException {
         final int timeoutSecs = 2;
         final WriteLimiter limiter = new WriteClient.DefaultWriteLimiter(1,
-                new LimitedPolicy.BlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
+            new LimitedPolicy.BlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
         final Collection<Rows> rows = TestUtil.newListOfRows("test1", "test2");
 
         // consume the permits
@@ -108,14 +109,14 @@ public class WriteLimitTest {
         Assert.assertFalse(ret.isOk());
         Assert.assertEquals(Result.FLOW_CONTROL, ret.getErr().getCode());
         Assert.assertEquals("Write limited by client, acquirePermits=4, maxPermits=1, availablePermits=0.",
-                ret.getErr().getError());
+            ret.getErr().getError());
     }
 
     @Test(expected = LimitedException.class)
     public void abortOnBlockingTimeoutWriteLimitTest() throws ExecutionException, InterruptedException {
         final int timeoutSecs = 2;
         final WriteLimiter limiter = new WriteClient.DefaultWriteLimiter(1,
-                new LimitedPolicy.AbortOnBlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
+            new LimitedPolicy.AbortOnBlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
         final Collection<Rows> rows = TestUtil.newListOfRows("test1", "test2");
 
         // consume the permits

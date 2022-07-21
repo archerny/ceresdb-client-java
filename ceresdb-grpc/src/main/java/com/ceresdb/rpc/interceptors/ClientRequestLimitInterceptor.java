@@ -46,7 +46,7 @@ import com.netflix.concurrency.limits.Limiter;
 public class ClientRequestLimitInterceptor implements ClientInterceptor {
 
     private static final Status             LIMIT_EXCEEDED_STATUS = Status.UNAVAILABLE
-                                                                      .withDescription("Client limit reached");
+            .withDescription("Client limit reached");
 
     private static final AtomicBoolean      LIMIT_SWITCH          = new AtomicBoolean(true);
 
@@ -72,33 +72,35 @@ public class ClientRequestLimitInterceptor implements ClientInterceptor {
 
         final String methodName = method.getFullMethodName();
 
-        return MetricsUtil.timer(LimitMetricRegistry.RPC_LIMITER, "acquire_time", methodName)
-                .timeSupplier(() -> this.limiter.acquire(() -> methodName))
-                .map(listener -> (ClientCall<ReqT, RespT>) new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(next.newCall(method, callOpts)) {
+        return MetricsUtil.timer(LimitMetricRegistry.RPC_LIMITER, "acquire_time", methodName).timeSupplier(
+            () -> this.limiter.acquire(() -> methodName)).map(
+                listener -> (ClientCall<ReqT, RespT>) new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(
+                    next.newCall(method, callOpts)) {
 
                     private final AtomicBoolean done = new AtomicBoolean(false);
 
                     @Override
                     public void start(final Listener<RespT> respListener, final Metadata headers) {
-                        super.start(new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(respListener) {
+                        super.start(
+                            new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(respListener) {
 
-                            @Override
-                            public void onClose(final Status status, final Metadata trailers) {
-                                try {
-                                    super.onClose(status, trailers);
-                                } finally {
-                                    if (done.compareAndSet(false, true)) {
-                                        if (status.isOk()) {
-                                            listener.onSuccess();
-                                        } else if (Status.Code.UNAVAILABLE == status.getCode()) {
-                                            listener.onDropped();
-                                        } else {
-                                            listener.onIgnore();
+                                @Override
+                                public void onClose(final Status status, final Metadata trailers) {
+                                    try {
+                                        super.onClose(status, trailers);
+                                    } finally {
+                                        if (done.compareAndSet(false, true)) {
+                                            if (status.isOk()) {
+                                                listener.onSuccess();
+                                            } else if (Status.Code.UNAVAILABLE == status.getCode()) {
+                                                listener.onDropped();
+                                            } else {
+                                                listener.onIgnore();
+                                            }
                                         }
                                     }
                                 }
-                            }
-                        }, headers);
+                            }, headers);
                     }
 
                     @Override
@@ -111,8 +113,7 @@ public class ClientRequestLimitInterceptor implements ClientInterceptor {
                             }
                         }
                     }
-                })
-                .orElseGet(() -> new ClientCall<ReqT, RespT>() {
+                }).orElseGet(() -> new ClientCall<ReqT, RespT>() {
 
                     private Listener<RespT> respListener;
 

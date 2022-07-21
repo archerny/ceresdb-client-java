@@ -108,11 +108,8 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                 final int rowCount = r.mapOr(0, QueryOk::getRowCount);
                 InnerMetrics.readRowCount().update(rowCount);
                 if (Utils.isRwLogging()) {
-                    LOG.info("Read from {}, duration={} ms, rowCount={}.",
-                            Utils.DB_NAME,
-                            Clock.defaultClock().duration(startCall),
-                            rowCount
-                    );
+                    LOG.info("Read from {}, duration={} ms, rowCount={}.", Utils.DB_NAME,
+                        Clock.defaultClock().duration(startCall), rowCount);
                 }
                 if (r.isOk()) {
                     return;
@@ -130,10 +127,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
         setMetricsIfAbsent(req);
 
         this.routerClient.routeFor(req.getMetrics())
-                .thenApply(routes -> routes.values()
-                    .stream()
-                    .findAny()
-                    .orElse(this.routerClient.clusterRoute()))
+                .thenApply(routes -> routes.values().stream().findAny().orElse(this.routerClient.clusterRoute()))
                 .thenAccept(route -> streamQueryFrom(route.getEndpoint(), req, ctx, observer));
     }
 
@@ -144,9 +138,10 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
 
         return this.routerClient.routeFor(req.getMetrics()) //
                 .thenApplyAsync(routes -> routes.values() //
-                    .stream() //
-                    .findAny() // everyone is OK
-                    .orElse(this.routerClient.clusterRoute()), this.asyncPool) //
+                        .stream() //
+                        .findAny() // everyone is OK
+                        .orElse(this.routerClient.clusterRoute()),
+                    this.asyncPool) //
                 .thenComposeAsync(route -> queryFrom(route.getEndpoint(), req, ctx, retries), this.asyncPool)
                 .thenComposeAsync(r -> {
                     if (r.isOk()) {
@@ -163,9 +158,9 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
 
                     // Should refresh route table
                     final Set<String> toRefresh = err.stream() //
-                        .filter(Utils::shouldRefreshRouteTable) //
-                        .flatMap(e -> e.getFailedMetrics().stream()) //
-                        .collect(Collectors.toSet());
+                            .filter(Utils::shouldRefreshRouteTable) //
+                            .flatMap(e -> e.getFailedMetrics().stream()) //
+                            .collect(Collectors.toSet());
 
                     if (toRefresh.isEmpty()) {
                         return Utils.completedCf(r);
@@ -173,7 +168,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
 
                     // Async to refresh route info
                     return this.routerClient.routeRefreshFor(toRefresh)
-                        .thenComposeAsync(routes -> query0(req, ctx, retries + 1), this.asyncPool);
+                            .thenComposeAsync(routes -> query0(req, ctx, retries + 1), this.asyncPool);
                 }, this.asyncPool);
     }
 
@@ -208,16 +203,13 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                 .setQl(req.getQl()) //
                 .build();
 
-        final CompletableFuture<Storage.QueryResponse> qrf = this.routerClient.invoke(
-                endpoint, //
-                request, //
-                ctx.with("retries", retries) // server can use this in metrics
+        final CompletableFuture<Storage.QueryResponse> qrf = this.routerClient.invoke(endpoint, //
+            request, //
+            ctx.with("retries", retries) // server can use this in metrics
         );
 
         return qrf.thenApplyAsync(
-                resp -> Utils.toResult(resp, req.getQl(), endpoint, req.getMetrics(), new ErrHandler(req)),
-                this.asyncPool
-        );
+            resp -> Utils.toResult(resp, req.getQl(), endpoint, req.getMetrics(), new ErrHandler(req)), this.asyncPool);
     }
 
     private void streamQueryFrom(final Endpoint endpoint, //
@@ -225,9 +217,9 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                                  final Context ctx, //
                                  final Observer<QueryOk> observer) {
         final Storage.QueryRequest request = Storage.QueryRequest.newBuilder() //
-            .addAllMetrics(req.getMetrics()) //
-            .setQl(req.getQl()) //
-            .build();
+                .addAllMetrics(req.getMetrics()) //
+                .setQl(req.getQl()) //
+                .build();
 
         this.routerClient.invokeServerStreaming(endpoint, request, ctx, new Observer<Storage.QueryResponse>() {
 
@@ -262,10 +254,10 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
     @Override
     public void display(final Printer out) {
         out.println("--- QueryClient ---") //
-            .print("maxRetries=") //
-            .println(this.opts.getMaxRetries()) //
-            .print("asyncPool=") //
-            .println(this.asyncPool);
+                .print("maxRetries=") //
+                .println(this.opts.getMaxRetries()) //
+                .print("asyncPool=") //
+                .println(this.asyncPool);
     }
 
     @Override

@@ -137,8 +137,8 @@ public class RecordMapper extends AvroMapper implements Function<byte[], Record>
 
         private static List<FieldType> parseSubTypes(final Type type, final Schema schema) {
             return type != Type.Union //
-                    ? Collections.emptyList() //
-                    : schema.getTypes().stream().map(DefaultRecord::parseType).collect(Collectors.toList());
+                ? Collections.emptyList() //
+                : schema.getTypes().stream().map(DefaultRecord::parseType).collect(Collectors.toList());
         }
 
         private static LogicalType parseLogicalType(final org.apache.avro.LogicalType lt) {

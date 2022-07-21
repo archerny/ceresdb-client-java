@@ -76,16 +76,16 @@ public class Gradient2Limit extends AbstractLimit {
     private static final Logger LOG = LoggerFactory.getLogger(Gradient2Limit.class);
 
     public static class Builder {
-        private int initialLimit = 20;
-        private int minLimit = 20;
-        private int maxConcurrency = 200;
+        private int                        initialLimit     = 20;
+        private int                        minLimit         = 20;
+        private int                        maxConcurrency   = 200;
 
-        private double smoothing = 0.2;
-        private Function<Integer, Integer> queueSize = concurrency -> 4;
-        private MetricRegistry registry = EmptyMetricRegistry.INSTANCE;
-        private int longWindow = 600;
-        private double rttTolerance = 1.5;
-        private boolean logOnLimitChange = true;
+        private double                     smoothing        = 0.2;
+        private Function<Integer, Integer> queueSize        = concurrency -> 4;
+        private MetricRegistry             registry         = EmptyMetricRegistry.INSTANCE;
+        private int                        longWindow       = 600;
+        private double                     rttTolerance     = 1.5;
+        private boolean                    logOnLimitChange = true;
 
         /**
          * Initial limit used by the limiter
@@ -210,32 +210,32 @@ public class Gradient2Limit extends AbstractLimit {
     /**
      * Estimated concurrency limit based on our algorithm
      */
-    private volatile double estimatedLimit;
+    private volatile double                     estimatedLimit;
 
     /**
      * Tracks a measurement of the short time, and more volatile, RTT meant to represent the
      * current system latency.
      */
-    private long lastRtt;
+    private long                                lastRtt;
 
     /**
      * Tracks a measurement of the long term, less volatile, RTT meant to represent the baseline
      * latency.  When the system is under load this number is expect to trend higher.
      */
-    private final Measurement longRtt;
+    private final Measurement                   longRtt;
 
     /**
      * Maximum allowed limit providing an upper bound failsafe
      */
-    private final int maxLimit;
-    private final int minLimit;
-    private final Function<Integer, Integer> queueSize;
-    private final double smoothing;
+    private final int                           maxLimit;
+    private final int                           minLimit;
+    private final Function<Integer, Integer>    queueSize;
+    private final double                        smoothing;
     private final MetricRegistry.SampleListener longRttSampleListener;
     private final MetricRegistry.SampleListener shortRttSampleListener;
     private final MetricRegistry.SampleListener queueSizeSampleListener;
-    private final double tolerance;
-    private final boolean logOnLimitChange;
+    private final double                        tolerance;
+    private final boolean                       logOnLimitChange;
 
     private Gradient2Limit(Builder builder) {
         super(builder.initialLimit);
@@ -292,12 +292,8 @@ public class Gradient2Limit extends AbstractLimit {
 
         if (this.logOnLimitChange && (int) currLimit != (int) newLimit) {
             LOG.info("New limit={}, previous limit={}, shortRtt={} ms, longRtt={} ms, queueSize={}, gradient={}.",
-                    (int) newLimit,
-                    (int) currLimit,
-                    getLastRtt(TimeUnit.MICROSECONDS) / 1000.0,
-                    getRttNoLoad(TimeUnit.MICROSECONDS) / 1000.0,
-                    queueSize,
-                    gradient);
+                (int) newLimit, (int) currLimit, getLastRtt(TimeUnit.MICROSECONDS) / 1000.0,
+                getRttNoLoad(TimeUnit.MICROSECONDS) / 1000.0, queueSize, gradient);
         }
 
         this.estimatedLimit = newLimit;

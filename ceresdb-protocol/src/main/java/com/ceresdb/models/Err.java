@@ -114,7 +114,7 @@ public class Err implements Streamable<Err> {
 
     private List<String> failedWriteMetrics() {
         return this.failedWrites == null ? Collections.emptyList() //
-                : this.failedWrites.stream().map(Rows::getMetric).collect(Collectors.toList());
+            : this.failedWrites.stream().map(Rows::getMetric).collect(Collectors.toList());
     }
 
     @Override
