@@ -109,7 +109,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                 InnerMetrics.readRowCount().update(rowCount);
                 if (Utils.isRwLogging()) {
                     LOG.info("Read from {}, duration={} ms, rowCount={}.", Utils.DB_NAME,
-                        Clock.defaultClock().duration(startCall), rowCount);
+                            Clock.defaultClock().duration(startCall), rowCount);
                 }
                 if (r.isOk()) {
                     return;
@@ -140,8 +140,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                 .thenApplyAsync(routes -> routes.values() //
                         .stream() //
                         .findAny() // everyone is OK
-                        .orElse(this.routerClient.clusterRoute()),
-                    this.asyncPool) //
+                        .orElse(this.routerClient.clusterRoute()), this.asyncPool) //
                 .thenComposeAsync(route -> queryFrom(route.getEndpoint(), req, ctx, retries), this.asyncPool)
                 .thenComposeAsync(r -> {
                     if (r.isOk()) {
@@ -204,12 +203,13 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
                 .build();
 
         final CompletableFuture<Storage.QueryResponse> qrf = this.routerClient.invoke(endpoint, //
-            request, //
-            ctx.with("retries", retries) // server can use this in metrics
+                request, //
+                ctx.with("retries", retries) // server can use this in metrics
         );
 
         return qrf.thenApplyAsync(
-            resp -> Utils.toResult(resp, req.getQl(), endpoint, req.getMetrics(), new ErrHandler(req)), this.asyncPool);
+                resp -> Utils.toResult(resp, req.getQl(), endpoint, req.getMetrics(), new ErrHandler(req)),
+                this.asyncPool);
     }
 
     private void streamQueryFrom(final Endpoint endpoint, //
@@ -226,7 +226,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
             @Override
             public void onNext(final Storage.QueryResponse value) {
                 final Result<QueryOk, Err> ret = Utils.toResult(value, req.getQl(), endpoint, req.getMetrics(),
-                    new ErrHandler(req));
+                        new ErrHandler(req));
                 if (ret.isOk()) {
                     observer.onNext(ret.getOk());
                 } else {
@@ -284,10 +284,10 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
         @Override
         public Result<QueryOk, Err> rejected(final QueryRequest request, final RejectedState state) {
             final String errMsg = String.format(
-                "Query limited by client, acquirePermits=%d, maxPermits=%d, availablePermits=%d.", //
-                state.acquirePermits(), //
-                state.maxPermits(), //
-                state.availablePermits());
+                    "Query limited by client, acquirePermits=%d, maxPermits=%d, availablePermits=%d.", //
+                    state.acquirePermits(), //
+                    state.maxPermits(), //
+                    state.availablePermits());
             return Result.err(Err.queryErr(Result.FLOW_CONTROL, errMsg, null, request.getQl(), request.getMetrics()));
         }
     }

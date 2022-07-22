@@ -153,7 +153,7 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         if (refreshPeriod > 0) {
             this.refresher = REFRESHER_POOL.getObject();
             this.refresher.scheduleWithFixedDelay(this::refresh, Utils.randomInitialDelay(180), refreshPeriod,
-                TimeUnit.SECONDS);
+                    TimeUnit.SECONDS);
 
             LOG.info("Route table cache refresher has been started.");
         }
@@ -296,7 +296,7 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         }
 
         LOG.warn("Now that the number of cached entries [{}] is about to exceed its limit [{}], we need to clean up.", //
-            this.routeCache.size(), this.opts.getMaxCachedSize());
+                this.routeCache.size(), this.opts.getMaxCachedSize());
 
         final int itemsToGC = (int) (this.routeCache.size() * CLEAN_THRESHOLD);
         if (itemsToGC <= 0) {
@@ -305,9 +305,9 @@ public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable
         }
 
         final List<String> topK = TopKSelector.selectTopK( //
-            this.routeCache.entrySet(), //
-            itemsToGC, //
-            (o1, o2) -> -Long.compare(o1.getValue().getLastHit(), o2.getValue().getLastHit()) //
+                this.routeCache.entrySet(), //
+                itemsToGC, //
+                (o1, o2) -> -Long.compare(o1.getValue().getLastHit(), o2.getValue().getLastHit()) //
         ) //
                 .map(Map.Entry::getKey) //
                 .collect(Collectors.toList());

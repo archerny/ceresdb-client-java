@@ -141,7 +141,7 @@ public class HttpManagementClient implements Management {
             if (!resp.isSuccessful()) {
                 throw new ManagementException(
                     String.format("Execute sql [%s] error from server %s, err_code=%d, err_msg=%s, detail_msg=%s", //
-                        sql, endpoint, resp.code(), resp.message(), getRespBody(resp)));
+                            sql, endpoint, resp.code(), resp.message(), getRespBody(resp)));
             }
             return toSqlResult(resp);
         } catch (final Throwable t) {

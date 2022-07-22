@@ -59,8 +59,8 @@ public class ContextToHeadersInterceptor implements ClientInterceptor {
             final Context ctx = CURRENT_CTX.get();
             if (ctx != null) {
                 ctx.entrySet().forEach(e -> headers.put( //
-                    Metadata.Key.of(e.getKey(), Metadata.ASCII_STRING_MARSHALLER), //
-                    String.valueOf(e.getValue())) //
+                        Metadata.Key.of(e.getKey(), Metadata.ASCII_STRING_MARSHALLER), //
+                        String.valueOf(e.getValue())) //
                 );
             }
             CURRENT_CTX.remove();

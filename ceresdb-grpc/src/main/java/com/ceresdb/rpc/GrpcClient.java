@@ -103,7 +103,7 @@ public class GrpcClient implements RpcClient {
                                                                              public void close(final ExecutorService ins) {
                                                                                  ExecutorServiceHelper
                                                                                          .shutdownAndAwaitTermination(
-                                                                                             ins);
+                                                                                                 ins);
                                                                              }
                                                                          });
 
@@ -302,7 +302,7 @@ public class GrpcClient implements RpcClient {
         checkArgs(endpoint, request, ctx, observer);
 
         final MethodDescriptor<Message, Message> method = getCallMethod(request,
-            MethodDescriptor.MethodType.SERVER_STREAMING);
+                MethodDescriptor.MethodType.SERVER_STREAMING);
         final CallOptions callOpts = CallOptions.DEFAULT.withExecutor(getObserverExecutor(observer));
 
         final String childTenant = addChildTenantIntoCtx(ctx);
@@ -322,25 +322,25 @@ public class GrpcClient implements RpcClient {
         final String target = target(ch, address);
 
         ClientCalls.asyncServerStreamingCall(ch.newCall(method, callOpts), (Message) request,
-            new StreamObserver<Message>() {
+                new StreamObserver<Message>() {
 
-                @SuppressWarnings("unchecked")
-                @Override
-                public void onNext(final Message value) {
-                    observer.onNext((Resp) value);
-                }
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void onNext(final Message value) {
+                        observer.onNext((Resp) value);
+                    }
 
-                @Override
-                public void onError(final Throwable err) {
-                    attachErrMsg(err, SERVER_STREAMING_CALL, methodName, childTenant, target, startCall, -1, ctx);
-                    observer.onError(err);
-                }
+                    @Override
+                    public void onError(final Throwable err) {
+                        attachErrMsg(err, SERVER_STREAMING_CALL, methodName, childTenant, target, startCall, -1, ctx);
+                        observer.onError(err);
+                    }
 
-                @Override
-                public void onCompleted() {
-                    observer.onCompleted();
-                }
-            });
+                    @Override
+                    public void onCompleted() {
+                        observer.onCompleted();
+                    }
+                });
     }
 
     @Override
@@ -351,7 +351,7 @@ public class GrpcClient implements RpcClient {
         checkArgs(endpoint, defaultReqIns, ctx, respObserver);
 
         final MethodDescriptor<Message, Message> method = getCallMethod(defaultReqIns,
-            MethodDescriptor.MethodType.CLIENT_STREAMING);
+                MethodDescriptor.MethodType.CLIENT_STREAMING);
         final CallOptions callOpts = CallOptions.DEFAULT.withExecutor(getObserverExecutor(respObserver));
 
         final String childTenant = addChildTenantIntoCtx(ctx);
@@ -373,25 +373,25 @@ public class GrpcClient implements RpcClient {
         final String target = target(ch, address);
 
         final StreamObserver<Message> gRpcObs = ClientCalls.asyncClientStreamingCall(ch.newCall(method, callOpts),
-            new StreamObserver<Message>() {
+                new StreamObserver<Message>() {
 
-                @SuppressWarnings("unchecked")
-                @Override
-                public void onNext(final Message value) {
-                    respObserver.onNext((Resp) value);
-                }
+                    @SuppressWarnings("unchecked")
+                    @Override
+                    public void onNext(final Message value) {
+                        respObserver.onNext((Resp) value);
+                    }
 
-                @Override
-                public void onError(final Throwable err) {
-                    attachErrMsg(err, CLIENT_STREAMING_CALL, methodName, childTenant, target, startCall, -1, ctx);
-                    respObserver.onError(err);
-                }
+                    @Override
+                    public void onError(final Throwable err) {
+                        attachErrMsg(err, CLIENT_STREAMING_CALL, methodName, childTenant, target, startCall, -1, ctx);
+                        respObserver.onError(err);
+                    }
 
-                @Override
-                public void onCompleted() {
-                    respObserver.onCompleted();
-                }
-            });
+                    @Override
+                    public void onCompleted() {
+                        respObserver.onCompleted();
+                    }
+                });
 
         return new Observer<Req>() {
 
@@ -591,7 +591,7 @@ public class GrpcClient implements RpcClient {
         }
 
         LOG.warn("Channel {} in [INACTIVE] state {} times, it has been removed from the pool.",
-            target(removedCh, endpoint), c);
+                target(removedCh, endpoint), c);
 
         if (removedCh != ch) {
             // Now that it's removed, close it
@@ -818,7 +818,7 @@ public class GrpcClient implements RpcClient {
         @Override
         public void rejectedExecution(final Runnable r, final ThreadPoolExecutor executor) {
             LOG.error("Thread poll {} is busy, the caller thread {} will run this task {}.", this.name,
-                Thread.currentThread(), r);
+                    Thread.currentThread(), r);
             if (!executor.isShutdown()) {
                 r.run();
             }

@@ -61,7 +61,7 @@ public class WriteLimitTest {
         Assert.assertFalse(ret.isOk());
         Assert.assertEquals(Result.FLOW_CONTROL, ret.getErr().getCode());
         Assert.assertEquals("Write limited by client, acquirePermits=4, maxPermits=1, availablePermits=0.",
-            ret.getErr().getError());
+                ret.getErr().getError());
     }
 
     @Test
@@ -109,7 +109,7 @@ public class WriteLimitTest {
         Assert.assertFalse(ret.isOk());
         Assert.assertEquals(Result.FLOW_CONTROL, ret.getErr().getCode());
         Assert.assertEquals("Write limited by client, acquirePermits=4, maxPermits=1, availablePermits=0.",
-            ret.getErr().getError());
+                ret.getErr().getError());
     }
 
     @Test(expected = LimitedException.class)

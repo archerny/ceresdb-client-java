@@ -109,10 +109,10 @@ public class CeresDBTest {
                                                                      "c15 TIMESTAMP NULL," + //
                                                                      "c16 VARBINARY NULL," + //
                                                                      "TIMESTAMP KEY(ts)) ENGINE=Analytic WITH (ttl='7d')",
-            TEST_TABLE_NAME));
+                TEST_TABLE_NAME));
 
         LOG.info("Start CeresDBx client {}, with options: {}, create table {}: {}.", result(ret), this.opts,
-            TEST_TABLE_NAME, result);
+                TEST_TABLE_NAME, result);
 
         final SqlResult existsResult2 = management.executeSql("EXISTS TABLE %s", TEST_TABLE_NAME);
         LOG.info("EXISTS TABLE after: {}.", existsResult2);
@@ -166,31 +166,31 @@ public class CeresDBTest {
             LOG.info("Field descriptor: {}", rd.getFieldDescriptors());
             LOG.info("Data: ts={}, c1={}, c2={}, c3={}, c4={}, c5={}, c6={}, c7={}, c8={}, c9={}," + //
             "c10={}, c11={}, c12={}, c13={}, c14={}, c15={}, c16={}", rd.getTimestamp("ts"), //
-                rd.getString("c1"), //
-                rd.getInt64("c2"), //
-                rd.getDouble("c3"), //
-                rd.getString("c4"), //
-                rd.getInt64("c5"), //
-                rd.getFloat("c6"), //
-                rd.getInteger("c7"), //
-                rd.getInt16("c8"), //
-                rd.getInt8("c9"), //
-                rd.getBoolean("c10"), //
-                rd.getUInt64("c11"), //
-                rd.getUInt32("c12"), //
-                rd.getUInt16("c13"), //
-                rd.getUInt8("c14"), //
-                rd.getTimestamp("c15"), rd.getBytes("c16"));
+                    rd.getString("c1"), //
+                    rd.getInt64("c2"), //
+                    rd.getDouble("c3"), //
+                    rd.getString("c4"), //
+                    rd.getInt64("c5"), //
+                    rd.getFloat("c6"), //
+                    rd.getInteger("c7"), //
+                    rd.getInt16("c8"), //
+                    rd.getInt8("c9"), //
+                    rd.getBoolean("c10"), //
+                    rd.getUInt64("c11"), //
+                    rd.getUInt32("c12"), //
+                    rd.getUInt16("c13"), //
+                    rd.getUInt8("c14"), //
+                    rd.getTimestamp("c15"), rd.getBytes("c16"));
         });
 
         final Management management = this.client.management();
 
         final SqlResult alterResult1 = management.executeSql("ALTER TABLE %s ADD COLUMN (c18 UINT64, c19 STRING TAG)",
-            TEST_TABLE_NAME);
+                TEST_TABLE_NAME);
         LOG.info("ALTER TABLE 1: {}.", alterResult1);
 
         final SqlResult alterResult2 = management.executeSql("ALTER TABLE %s ADD COLUMN c20 STRING TAG",
-            TEST_TABLE_NAME);
+                TEST_TABLE_NAME);
         LOG.info("ALTER TABLE 2: {}.", alterResult2);
 
         final SqlResult descResult = management.executeSql("DESCRIBE %s", TEST_TABLE_NAME);
@@ -232,7 +232,7 @@ public class CeresDBTest {
                         in.put("c9", FieldValue.withInt8(8));
                         in.put("c10", FieldValue.withBoolean(true));
                         in.put("c11",
-                            FieldValue.withUInt64(UnsignedUtil.getUInt64(Long.MAX_VALUE).add(BigInteger.ONE)));
+                                FieldValue.withUInt64(UnsignedUtil.getUInt64(Long.MAX_VALUE).add(BigInteger.ONE)));
                         in.put("c12", FieldValue.withUInt32(33));
                         in.put("c13", FieldValue.withUInt16(17));
                         in.put("c14", FieldValue.withUInt8(9));

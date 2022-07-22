@@ -35,7 +35,7 @@ public class GrpcFactory implements RpcFactory {
                          final Object defaultRespIns) {
         getMarshallerRegistry() //
                 .registerMarshaller(method, (Class<? extends Message>) reqCls, (Message) defaultReqIns,
-                    (Message) defaultRespIns);
+                        (Message) defaultRespIns);
     }
 
     @Override

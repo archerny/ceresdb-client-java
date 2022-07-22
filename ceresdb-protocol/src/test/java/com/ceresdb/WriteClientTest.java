@@ -82,8 +82,8 @@ public class WriteClientTest {
     @Test
     public void writeAllSuccessTest() throws ExecutionException, InterruptedException {
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3");
+                "write_client_test_metric2", //
+                "write_client_test_metric3");
 
         final Endpoint ep1 = Endpoint.of("127.0.0.1", 8081);
         final Endpoint ep2 = Endpoint.of("127.0.0.2", 8081);
@@ -124,8 +124,8 @@ public class WriteClientTest {
     @Test
     public void write3And1InvalidRoute() throws ExecutionException, InterruptedException {
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3");
+                "write_client_test_metric2", //
+                "write_client_test_metric3");
 
         final Endpoint ep1 = Endpoint.of("127.0.0.1", 8081);
         final Endpoint ep2 = Endpoint.of("127.0.0.2", 8081);
@@ -144,7 +144,7 @@ public class WriteClientTest {
         Mockito.when(this.routerClient.invoke(Mockito.eq(ep4), Mockito.any(), Mockito.any())) //
                 .thenReturn(Utils.completedCf(resp));
         Mockito.when(this.routerClient.routeFor(Mockito.eq(TestUtil.asSet("write_client_test_metric1", //
-            "write_client_test_metric2", "write_client_test_metric3")))) //
+                "write_client_test_metric2", "write_client_test_metric3")))) //
                 .thenReturn(Utils.completedCf(new HashMap<String, Route>() {
                     private static final long serialVersionUID = -8646902388192715970L;
 
@@ -182,8 +182,8 @@ public class WriteClientTest {
     @Test
     public void write3And1InvalidRouteAndRetryFailed() throws ExecutionException, InterruptedException {
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3");
+                "write_client_test_metric2", //
+                "write_client_test_metric3");
 
         final Endpoint ep1 = Endpoint.of("127.0.0.1", 8081);
         final Endpoint ep2 = Endpoint.of("127.0.0.2", 8081);
@@ -199,7 +199,7 @@ public class WriteClientTest {
         Mockito.when(this.routerClient.invoke(Mockito.eq(ep3), Mockito.any(), Mockito.any())) //
                 .thenReturn(Utils.completedCf(errResp));
         Mockito.when(this.routerClient.routeFor(Mockito.eq(
-            TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
+                TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
                 .thenReturn(Utils.completedCf(new HashMap<String, Route>() {
                     private static final long serialVersionUID = -7535390185627686991L;
 
@@ -240,8 +240,8 @@ public class WriteClientTest {
     @Test
     public void write3And2FailedAndRetryFailed() throws ExecutionException, InterruptedException {
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3");
+                "write_client_test_metric2", //
+                "write_client_test_metric3");
 
         final Endpoint ep1 = Endpoint.of("127.0.0.1", 8081);
         final Endpoint ep2 = Endpoint.of("127.0.0.2", 8081);
@@ -257,7 +257,7 @@ public class WriteClientTest {
         Mockito.when(this.routerClient.invoke(Mockito.eq(ep3), Mockito.any(), Mockito.any())) //
                 .thenReturn(Utils.completedCf(errResp));
         Mockito.when(this.routerClient.routeFor(Mockito.eq(
-            TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
+                TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
                 .thenReturn(Utils.completedCf(new HashMap<String, Route>() {
                     private static final long serialVersionUID = -5936788008084035345L;
 
@@ -311,8 +311,8 @@ public class WriteClientTest {
     @Test
     public void write3And2FailedAndSomeNoRetry() throws ExecutionException, InterruptedException {
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3");
+                "write_client_test_metric2", //
+                "write_client_test_metric3");
 
         final Endpoint ep1 = Endpoint.of("127.0.0.1", 8081);
         final Endpoint ep2 = Endpoint.of("127.0.0.2", 8081);
@@ -329,7 +329,7 @@ public class WriteClientTest {
         Mockito.when(this.routerClient.invoke(Mockito.eq(ep3), Mockito.any(), Mockito.any())) //
                 .thenReturn(Utils.completedCf(errResp2));
         Mockito.when(this.routerClient.routeFor(Mockito.eq(
-            TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
+                TestUtil.asSet("write_client_test_metric1", "write_client_test_metric2", "write_client_test_metric3")))) //
                 .thenReturn(Utils.completedCf(new HashMap<String, Route>() {
                     private static final long serialVersionUID = 1040769477529210661L;
 
@@ -390,13 +390,13 @@ public class WriteClientTest {
         this.writeClient.init(writeOpts);
 
         final List<Rows> data = TestUtil.newListOfRows("write_client_test_metric1", //
-            "write_client_test_metric2", //
-            "write_client_test_metric3", //
-            "write_client_test_metric4", //
-            "write_client_test_metric5", //
-            "write_client_test_metric6", //
-            "write_client_test_metric7", //
-            "write_client_test_metric8");
+                "write_client_test_metric2", //
+                "write_client_test_metric3", //
+                "write_client_test_metric4", //
+                "write_client_test_metric5", //
+                "write_client_test_metric6", //
+                "write_client_test_metric7", //
+                "write_client_test_metric8");
 
         final Endpoint ep = Endpoint.of("127.0.0.1", 8081);
 
@@ -449,26 +449,26 @@ public class WriteClientTest {
         final CompletableFuture<WriteOk> f = new CompletableFuture<>();
         final AtomicInteger dataCount = new AtomicInteger();
         Mockito.when(this.routerClient.invokeClientStreaming(Mockito.any(), Mockito.any(Storage.WriteRequest.class),
-            Mockito.any(), Mockito.any())).thenReturn(new Observer<Storage.WriteRequest>() {
+                Mockito.any(), Mockito.any())).thenReturn(new Observer<Storage.WriteRequest>() {
 
-                @Override
-                public void onNext(final Storage.WriteRequest value) {
-                    final int c = value.getMetricsList().stream() //
-                            .flatMap(wmc -> wmc.getEntriesList().stream()) //
-                            .map(Storage.WriteEntry::getFieldGroupsCount).reduce(0, Integer::sum);
-                    dataCount.addAndGet(c);
-                }
+                    @Override
+                    public void onNext(final Storage.WriteRequest value) {
+                        final int c = value.getMetricsList().stream() //
+                                .flatMap(wmc -> wmc.getEntriesList().stream()) //
+                                .map(Storage.WriteEntry::getFieldGroupsCount).reduce(0, Integer::sum);
+                        dataCount.addAndGet(c);
+                    }
 
-                @Override
-                public void onError(final Throwable err) {
-                    // ignored
-                }
+                    @Override
+                    public void onError(final Throwable err) {
+                        // ignored
+                    }
 
-                @Override
-                public void onCompleted() {
-                    f.complete(WriteOk.ok(dataCount.get(), 0, null));
-                }
-            });
+                    @Override
+                    public void onCompleted() {
+                        f.complete(WriteOk.ok(dataCount.get(), 0, null));
+                    }
+                });
 
         final StreamWriteBuf<Rows, WriteOk> writer = this.writeClient.streamWrite(testMetric);
         final CompletableFuture<WriteOk> ret = writer //

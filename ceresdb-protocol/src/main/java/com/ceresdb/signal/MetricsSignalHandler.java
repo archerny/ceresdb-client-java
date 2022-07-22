@@ -54,7 +54,7 @@ public class MetricsSignalHandler implements SignalHandler {
             final File file = FileOutputHelper.getOutputFile(BASE_NAME);
 
             LOG.info("Printing CeresDB client metrics triggered by signal: {} to file: {}.", signalName,
-                file.getAbsoluteFile());
+                    file.getAbsoluteFile());
 
             try (PrintStream out = new PrintStream(new FileOutputStream(file, true))) {
                 final MetricReporter reporter = MetricReporter.forRegistry(MetricsUtil.metricRegistry()) //

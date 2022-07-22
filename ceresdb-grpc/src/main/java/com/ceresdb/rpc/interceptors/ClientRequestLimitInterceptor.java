@@ -72,35 +72,35 @@ public class ClientRequestLimitInterceptor implements ClientInterceptor {
 
         final String methodName = method.getFullMethodName();
 
-        return MetricsUtil.timer(LimitMetricRegistry.RPC_LIMITER, "acquire_time", methodName).timeSupplier(
-            () -> this.limiter.acquire(() -> methodName)).map(
-                listener -> (ClientCall<ReqT, RespT>) new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(
+        return MetricsUtil.timer(LimitMetricRegistry.RPC_LIMITER, "acquire_time", methodName)
+                .timeSupplier(() -> this.limiter.acquire(() -> methodName))
+                .map(listener -> (ClientCall<ReqT, RespT>) new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(
                     next.newCall(method, callOpts)) {
 
                     private final AtomicBoolean done = new AtomicBoolean(false);
 
                     @Override
                     public void start(final Listener<RespT> respListener, final Metadata headers) {
-                        super.start(
-                            new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(respListener) {
+                        super.start(new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(
+                            respListener) {
 
-                                @Override
-                                public void onClose(final Status status, final Metadata trailers) {
-                                    try {
-                                        super.onClose(status, trailers);
-                                    } finally {
-                                        if (done.compareAndSet(false, true)) {
-                                            if (status.isOk()) {
-                                                listener.onSuccess();
-                                            } else if (Status.Code.UNAVAILABLE == status.getCode()) {
-                                                listener.onDropped();
-                                            } else {
-                                                listener.onIgnore();
-                                            }
+                            @Override
+                            public void onClose(final Status status, final Metadata trailers) {
+                                try {
+                                    super.onClose(status, trailers);
+                                } finally {
+                                    if (done.compareAndSet(false, true)) {
+                                        if (status.isOk()) {
+                                            listener.onSuccess();
+                                        } else if (Status.Code.UNAVAILABLE == status.getCode()) {
+                                            listener.onDropped();
+                                        } else {
+                                            listener.onIgnore();
                                         }
                                     }
                                 }
-                            }, headers);
+                            }
+                        }, headers);
                     }
 
                     @Override

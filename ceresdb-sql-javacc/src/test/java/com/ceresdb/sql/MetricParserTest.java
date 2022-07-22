@@ -71,8 +71,8 @@ public class MetricParserTest {
 
     @Test
     public void extractMetricNamesTest() {
-        final MetricParser parser = getParser(
-            "select func1(table1.a), func2(table2.b), * from table1, table2, table3 " + "where table1.id=table2.id");
+        final MetricParser parser = getParser("select func1(table1.a), func2(table2.b), * from table1, table2, table3 "
+                                              + "where table1.id=table2.id");
         final List<String> metricNames = parser.metricNames();
         Assert.assertEquals(MetricParser.StatementType.Select, parser.statementType());
         Assert.assertEquals(Arrays.asList("table1", "table2", "table3"), metricNames);
@@ -126,7 +126,7 @@ public class MetricParserTest {
     @Test
     public void createTableIfNotExistsTest() {
         final MetricParser parser = getParser(
-            "CREATE TABLE IF NOT EXISTS with_primary_key(\n" + "    ts TIMESTAMP NOT NULL,\n" //
+                "CREATE TABLE IF NOT EXISTS with_primary_key(\n" + "    ts TIMESTAMP NOT NULL,\n" //
                                               + "    c1 STRING NOT NULL,\n" //
                                               + "    c2 STRING NULL,\n" //
                                               + "    c3 DOUBLE NULL,\n" //

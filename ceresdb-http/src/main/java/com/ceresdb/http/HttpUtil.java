@@ -39,9 +39,9 @@ public class HttpUtil {
     public static final String        PROTOCOL         = "http";
 
     private static final long         READ_TIMEOUT_MS  = SystemPropertyUtil.getLong(OptKeys.HTTP_READ_TIMEOUT_MS,
-        10000);
+            10000);
     private static final long         WRITE_TIMEOUT_MS = SystemPropertyUtil.getLong(OptKeys.HTTP_WRITE_TIMEOUT_MS,
-        10000);
+            10000);
 
     private static final MediaType    JSON_MEDIA_TYPE  = MediaType.parse("application/json; charset=utf-8");
 

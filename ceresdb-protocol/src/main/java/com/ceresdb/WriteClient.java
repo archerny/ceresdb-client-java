@@ -126,7 +126,7 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
             if (r != null) {
                 if (Utils.isRwLogging()) {
                     LOG.info("Write to {}, duration={} ms, result={}.", Utils.DB_NAME,
-                        Clock.defaultClock().duration(startCall), r);
+                            Clock.defaultClock().duration(startCall), r);
                 }
                 if (r.isOk()) {
                     final WriteOk ok = r.getOk();
@@ -211,8 +211,7 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
                         .map(e -> writeTo(e.getKey(), e.getValue(), ctx.copy(), retries))
                         // Reduce and combine write result
                         .reduce((f1, f2) -> f1.thenCombineAsync(f2, Utils::combineResult, this.asyncPool))
-                        .orElse(Utils.completedCf(WriteOk.emptyOk().mapToResult())),
-                    this.asyncPool)
+                        .orElse(Utils.completedCf(WriteOk.emptyOk().mapToResult())), this.asyncPool)
                 // 3. If failed, refresh route info and retry on INVALID_ROUTE
                 .thenComposeAsync(r -> {
                     if (r.isOk()) {
@@ -254,9 +253,9 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
 
                     return noRetryErr.isPresent()
                         ? rwf.thenApplyAsync(ret -> Utils.combineResult(noRetryErr.get().mapToResult(), ret),
-                            this.asyncPool)
+                                this.asyncPool)
                         : rwf.thenApplyAsync(ret -> Utils.combineResult(err.getSubOk().mapToResult(), ret),
-                            this.asyncPool);
+                                this.asyncPool);
                 }, this.asyncPool);
     }
 
@@ -325,8 +324,8 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
                                                              final Context ctx, //
                                                              final int retries) {
         final CompletableFuture<Storage.WriteResponse> wrf = this.routerClient.invoke(endpoint, //
-            toWriteRequestObj(data.stream()), //
-            ctx.with("retries", retries) // server can use this in metrics
+                toWriteRequestObj(data.stream()), //
+                ctx.with("retries", retries) // server can use this in metrics
         );
 
         return wrf.thenApplyAsync(resp -> Utils.toResult(resp, endpoint, data), this.asyncPool);
@@ -336,30 +335,30 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
                                                  final Context ctx, //
                                                  final Observer<WriteOk> respObserver) {
         final Observer<Storage.WriteRequest> rpcObs = this.routerClient.invokeClientStreaming(route.getEndpoint(), //
-            Storage.WriteRequest.getDefaultInstance(), //
-            ctx, //
-            new Observer<Storage.WriteResponse>() {
+                Storage.WriteRequest.getDefaultInstance(), //
+                ctx, //
+                new Observer<Storage.WriteResponse>() {
 
-                @Override
-                public void onNext(final Storage.WriteResponse value) {
-                    final Result<WriteOk, Err> ret = Utils.toResult(value, route.getEndpoint(), null);
-                    if (ret.isOk()) {
-                        respObserver.onNext(ret.getOk());
-                    } else {
-                        respObserver.onError(new StreamException("Failed to do stream write: " + ret.getErr()));
+                    @Override
+                    public void onNext(final Storage.WriteResponse value) {
+                        final Result<WriteOk, Err> ret = Utils.toResult(value, route.getEndpoint(), null);
+                        if (ret.isOk()) {
+                            respObserver.onNext(ret.getOk());
+                        } else {
+                            respObserver.onError(new StreamException("Failed to do stream write: " + ret.getErr()));
+                        }
                     }
-                }
 
-                @Override
-                public void onError(final Throwable err) {
-                    respObserver.onError(err);
-                }
+                    @Override
+                    public void onError(final Throwable err) {
+                        respObserver.onError(err);
+                    }
 
-                @Override
-                public void onCompleted() {
-                    respObserver.onCompleted();
-                }
-            });
+                    @Override
+                    public void onCompleted() {
+                        respObserver.onCompleted();
+                    }
+                });
 
         return new Observer<Stream<Rows>>() {
 
@@ -527,10 +526,10 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
         @Override
         public Result<WriteOk, Err> rejected(final Collection<Rows> in, final RejectedState state) {
             final String errMsg = String.format(
-                "Write limited by client, acquirePermits=%d, maxPermits=%d, availablePermits=%d.", //
-                state.acquirePermits(), //
-                state.maxPermits(), //
-                state.availablePermits());
+                    "Write limited by client, acquirePermits=%d, maxPermits=%d, availablePermits=%d.", //
+                    state.acquirePermits(), //
+                    state.maxPermits(), //
+                    state.availablePermits());
             return Result.err(Err.writeErr(Result.FLOW_CONTROL, errMsg, null, in));
         }
     }

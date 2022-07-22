@@ -73,7 +73,7 @@ public final class ThreadPoolUtil {
                                                    final long keepAliveSeconds, final BlockingQueue<Runnable> workQueue,
                                                    final ThreadFactory threadFactory) {
         return newThreadPool(poolName, enableMetric, coreThreads, maximumThreads, keepAliveSeconds, workQueue,
-            threadFactory, defaultHandler);
+                threadFactory, defaultHandler);
     }
 
     /**
@@ -232,7 +232,7 @@ public final class ThreadPoolUtil {
             Requires.requireNonNull(this.handler, "handler");
 
             return ThreadPoolUtil.newThreadPool(this.poolName, this.enableMetric, this.coreThreads, this.maximumThreads,
-                this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
+                    this.keepAliveSeconds, this.workQueue, this.threadFactory, this.handler);
         }
     }
 
@@ -277,7 +277,7 @@ public final class ThreadPoolUtil {
             Requires.requireNonNull(this.handler, "handler");
 
             return ThreadPoolUtil.newScheduledThreadPool(this.poolName, this.enableMetric, this.coreThreads,
-                this.threadFactory, this.handler);
+                    this.threadFactory, this.handler);
         }
     }
 }

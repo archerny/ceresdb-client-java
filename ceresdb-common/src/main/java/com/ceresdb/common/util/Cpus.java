@@ -26,7 +26,7 @@ import com.ceresdb.common.OptKeys;
 public class Cpus {
 
     private static final int CPUS = SystemPropertyUtil.getInt(OptKeys.AVAILABLE_CPUS,
-        Runtime.getRuntime().availableProcessors());
+            Runtime.getRuntime().availableProcessors());
 
     /**
      * The configured number of available processors. The default is

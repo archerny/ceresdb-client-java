@@ -42,7 +42,7 @@ public class Files {
         }
 
         try (FileChannel fc = FileChannel.open(file.toPath(),
-            isDir ? StandardOpenOption.READ : StandardOpenOption.WRITE)) {
+                isDir ? StandardOpenOption.READ : StandardOpenOption.WRITE)) {
             fc.force(true);
         }
     }

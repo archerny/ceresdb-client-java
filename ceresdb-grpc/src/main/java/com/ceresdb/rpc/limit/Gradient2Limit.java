@@ -292,8 +292,8 @@ public class Gradient2Limit extends AbstractLimit {
 
         if (this.logOnLimitChange && (int) currLimit != (int) newLimit) {
             LOG.info("New limit={}, previous limit={}, shortRtt={} ms, longRtt={} ms, queueSize={}, gradient={}.",
-                (int) newLimit, (int) currLimit, getLastRtt(TimeUnit.MICROSECONDS) / 1000.0,
-                getRttNoLoad(TimeUnit.MICROSECONDS) / 1000.0, queueSize, gradient);
+                    (int) newLimit, (int) currLimit, getLastRtt(TimeUnit.MICROSECONDS) / 1000.0,
+                    getRttNoLoad(TimeUnit.MICROSECONDS) / 1000.0, queueSize, gradient);
         }
 
         this.estimatedLimit = newLimit;

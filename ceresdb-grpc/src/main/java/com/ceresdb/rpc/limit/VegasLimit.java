@@ -261,8 +261,8 @@ public class VegasLimit extends AbstractLimit {
 
         if (this.logOnLimitChange && (int) newLimit != (int) currLimit) {
             LOG.info("New limit={}, previous limit={}, minRtt={} ms, winRtt={} ms, queueSize={}.", (int) newLimit,
-                (int) currLimit, TimeUnit.NANOSECONDS.toMicros(this.rtt_noload) / 1000.0,
-                TimeUnit.NANOSECONDS.toMicros(rtt) / 1000.0, queueSize);
+                    (int) currLimit, TimeUnit.NANOSECONDS.toMicros(this.rtt_noload) / 1000.0,
+                    TimeUnit.NANOSECONDS.toMicros(rtt) / 1000.0, queueSize);
         }
 
         this.estimatedLimit = newLimit;

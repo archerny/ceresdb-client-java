@@ -62,7 +62,7 @@ public class DisplaySignalHandler implements SignalHandler {
             final File file = FileOutputHelper.getOutputFile(BASE_NAME);
 
             LOG.info("Displaying CeresDBx clients triggered by signal: {} to file: {}.", signalName,
-                file.getAbsoluteFile());
+                    file.getAbsoluteFile());
 
             try (PrintWriter out = new PrintWriter(
                 new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
