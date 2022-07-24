@@ -27,21 +27,21 @@ import java.util.Map;
 @SuppressWarnings("unused")
 public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants {
     // whitespaces and comments are invalid
-    private int                    validTokens         = 0;
+    private int validTokens         = 0;
     // see http://www.engr.mun.ca/~theo/JavaCC-FAQ/javacc-faq-moz.htm#tth_sEc3.17
-    private int                    commentNestingDepth = 0;
+    private int commentNestingDepth = 0;
 
-    final java.util.Deque<Integer> stack               = new java.util.LinkedList<>();
-    int                            parentToken         = -1;
+    final java.util.Deque<Integer> stack = new java.util.LinkedList<>();
+    int parentToken = -1;
 
-    final StringBuilder            builder             = new StringBuilder();
+    final StringBuilder builder = new StringBuilder();
 
-    StatementType                  stmtType            = StatementType.UNKNOWN;
-    String                         database            = null;
+    StatementType stmtType = StatementType.UNKNOWN;
+    String        database = null;
 
-    final List<String>             tables              = new ArrayList<>();
-    final List<Integer>            parameters          = new ArrayList<>();
-    final Map<String, Integer>     positions           = new HashMap<>();
+    final List<String>         tables     = new ArrayList<>();
+    final List<Integer>        parameters = new ArrayList<>();
+    final Map<String, Integer> positions  = new HashMap<>();
 
     public void CommonTokenAction(Token t) {
         if (t.kind != CeresDBxSqlParserConstants.SEMICOLON) {
@@ -296,7 +296,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
     static final long[] jjbitVec3 = { 0x1L, 0x0L, 0x0L, 0x0L };
     static final long[] jjbitVec4 = { 0x0L, 0x0L, 0x0L, 0x8000000000000000L };
     static final long[] jjbitVec5 = { 0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL,
-            0xffffffffffffffffL  };
+                                      0xffffffffffffffffL };
     static final long[] jjbitVec7 = { 0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL };
 
     private int jjMoveNfa_0(int startState, int curPos) {
@@ -305,7 +305,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
         int i = 1;
         jjstateSet[0] = startState;
         int kind = 0x7fffffff;
-        for (;;) {
+        for (; ; ) {
             if (++jjround == 0x7fffffff)
                 ReInitRounds();
             if (curChar < 64) {
@@ -317,7 +317,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 40: {
                             jjCheckNAddStates(0, 3);
                         }
-                            break;
+                        break;
                         case 537:
                             if ((0xffffff7fffffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(4, 7);
@@ -377,19 +377,19 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 2)
                                 kind = 2;
-                            {
-                                jjCheckNAdd(2);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(2);
+                        }
+                        break;
                         case 2:
                             if ((0xffffffffffffdbffL & l) == 0x0L)
                                 break;
                             if (kind > 2)
                                 kind = 2;
-                            {
-                                jjCheckNAdd(2);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(2);
+                        }
+                        break;
                         case 3:
                             if (curChar == 45)
                                 jjstateSet[jjnewStateCnt++] = 1;
@@ -399,10 +399,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 2)
                                 kind = 2;
-                            {
-                                jjCheckNAdd(2);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(2);
+                        }
+                        break;
                         case 5:
                             if (curChar == 47)
                                 jjstateSet[jjnewStateCnt++] = 4;
@@ -432,7 +432,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 31: {
                             jjCheckNAddStates(4, 7);
                         }
-                            break;
+                        break;
                         case 32:
                             if ((0xffffff7fffffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(4, 7);
@@ -451,19 +451,19 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(37);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(37);
+                        }
+                        break;
                         case 37:
                             if ((0x3ff001000000000L & l) == 0x0L)
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(37);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(37);
+                        }
+                        break;
                         case 45:
                         case 49:
                             if (curChar == 34) {
@@ -473,7 +473,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 47: {
                             jjCheckNAddStates(8, 11);
                         }
-                            break;
+                        break;
                         case 48:
                             if ((0xfffffffbffffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(8, 11);
@@ -497,10 +497,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAddTwoStates(53, 54);
-                            }
-                            break;
+                        {
+                            jjCheckNAddTwoStates(53, 54);
+                        }
+                        break;
                         case 55:
                             if ((0x280000000000L & l) != 0x0L) {
                                 jjCheckNAdd(56);
@@ -511,19 +511,19 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAdd(56);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(56);
+                        }
+                        break;
                         case 502:
                             if ((0x3ff000000000000L & l) == 0x0L)
                                 break;
                             if (kind > 179)
                                 kind = 179;
-                            {
-                                jjCheckNAddStates(12, 19);
-                            }
-                            break;
+                        {
+                            jjCheckNAddStates(12, 19);
+                        }
+                        break;
                         case 503:
                             if ((0x3ff000000000000L & l) != 0x0L) {
                                 jjCheckNAddStates(23, 25);
@@ -546,19 +546,19 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAddTwoStates(510, 511);
-                            }
-                            break;
+                        {
+                            jjCheckNAddTwoStates(510, 511);
+                        }
+                        break;
                         case 510:
                             if ((0x3ff000000000000L & l) == 0x0L)
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAddTwoStates(510, 511);
-                            }
-                            break;
+                        {
+                            jjCheckNAddTwoStates(510, 511);
+                        }
+                        break;
                         case 512:
                             if ((0x280000000000L & l) != 0x0L) {
                                 jjCheckNAdd(513);
@@ -569,10 +569,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAdd(513);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(513);
+                        }
+                        break;
                         case 514:
                             if ((0x3ff000000000000L & l) != 0x0L) {
                                 jjCheckNAddTwoStates(514, 515);
@@ -588,19 +588,19 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAdd(517);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(517);
+                        }
+                        break;
                         case 518:
                             if ((0x3ff000000000000L & l) == 0x0L)
                                 break;
                             if (kind > 179)
                                 kind = 179;
-                            {
-                                jjCheckNAdd(518);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(518);
+                        }
+                        break;
                         case 519:
                             if (curChar == 48) {
                                 jjAddStates(20, 22);
@@ -635,10 +635,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAdd(528);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(528);
+                        }
+                        break;
                         case 530:
                             if ((0x3ff000000000000L & l) != 0x0L) {
                                 jjAddStates(28, 29);
@@ -654,10 +654,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 178)
                                 kind = 178;
-                            {
-                                jjCheckNAdd(533);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(533);
+                        }
+                        break;
                         case 535:
                             if ((0x3ff000000000000L & l) == 0x0L)
                                 break;
@@ -843,7 +843,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 31: {
                             jjCheckNAddStates(4, 7);
                         }
-                            break;
+                        break;
                         case 32:
                             if ((0xffffffffefffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(4, 7);
@@ -855,10 +855,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(37);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(37);
+                        }
+                        break;
                         case 38:
                         case 42:
                             if (curChar == 96) {
@@ -872,7 +872,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 40: {
                             jjCheckNAddStates(0, 3);
                         }
-                            break;
+                        break;
                         case 41:
                             if ((0xfffffffeefffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(0, 3);
@@ -893,7 +893,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                         case 47: {
                             jjCheckNAddStates(8, 11);
                         }
-                            break;
+                        break;
                         case 48:
                             if ((0xffffffffefffffffL & l) != 0x0L) {
                                 jjCheckNAddStates(8, 11);
@@ -2709,37 +2709,37 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(505);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(505);
+                        }
+                        break;
                         case 505:
                             if ((0x7fffffe87fffffeL & l) == 0x0L)
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(505);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(505);
+                        }
+                        break;
                         case 506:
                             if ((0x7ffffde87ffffdeL & l) == 0x0L)
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(507);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(507);
+                        }
+                        break;
                         case 507:
                             if ((0x7fffffe87fffffeL & l) == 0x0L)
                                 break;
                             if (kind > 175)
                                 kind = 175;
-                            {
-                                jjCheckNAdd(507);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(507);
+                        }
+                        break;
                         case 511:
                             if ((0x2000000020L & l) != 0x0L) {
                                 jjAddStates(132, 133);
@@ -2800,10 +2800,10 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                                 break;
                             if (kind > 180)
                                 kind = 180;
-                            {
-                                jjCheckNAdd(535);
-                            }
-                            break;
+                        {
+                            jjCheckNAdd(535);
+                        }
+                        break;
                         default:
                             break;
                     }
@@ -2909,16 +2909,24 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
 
     /** Token literal values. */
     public static final String[] jjstrLiteralImages = { "", null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
-            null, null, null, null, "\55\76", "\52", "\100", "\140", "\134", "\72", "\54", "\174\174", "\55", "\44",
-            "\56", "\75\75", "\75", "\76\75", "\76", "\43", "\173", "\133", "\74\75", "\50", "\74", null, "\45", "\53",
-            "\77", "\42", "\47", "\175", "\135", "\51", "\73", "\57", null, null, null, null, null, null, null, null, };
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        null, null, null, null, null, null, null, null, null, null,
+                                                        "\55\76", "\52", "\100", "\140", "\134", "\72", "\54",
+                                                        "\174\174", "\55", "\44", "\56", "\75\75", "\75", "\76\75",
+                                                        "\76", "\43", "\173", "\133", "\74\75", "\50", "\74", null,
+                                                        "\45", "\53", "\77", "\42", "\47", "\175", "\135", "\51", "\73",
+                                                        "\57", null, null, null, null, null, null, null, null, };
 
     protected Token jjFillToken() {
         final Token t;
@@ -2946,12 +2954,14 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
     }
 
     static final int[] jjnextStates = { 39, 41, 43, 44, 30, 32, 34, 35, 46, 48, 50, 51, 503, 504, 506, 508, 509, 514,
-            515, 518, 520, 529, 534, 503, 504, 506, 521, 522, 530, 531, 494, 499, 483, 487, 464, 469, 476, 456, 458,
-            460, 435, 446, 451, 421, 424, 427, 431, 412, 417, 394, 398, 401, 404, 376, 380, 383, 387, 390, 357, 362,
-            364, 368, 371, 311, 318, 326, 330, 335, 338, 341, 349, 351, 278, 283, 285, 288, 293, 298, 305, 252, 257,
-            262, 268, 271, 273, 233, 240, 245, 246, 247, 204, 209, 210, 214, 215, 219, 226, 229, 230, 190, 194, 199,
-            168, 173, 179, 182, 184, 97, 102, 105, 112, 117, 120, 123, 130, 138, 147, 158, 165, 84, 88, 93, 58, 62, 67,
-            69, 71, 75, 79, 80, 55, 56, 512, 513, 516, 517, 527, 528, 532, 533, };
+                                        515, 518, 520, 529, 534, 503, 504, 506, 521, 522, 530, 531, 494, 499, 483, 487,
+                                        464, 469, 476, 456, 458, 460, 435, 446, 451, 421, 424, 427, 431, 412, 417, 394,
+                                        398, 401, 404, 376, 380, 383, 387, 390, 357, 362, 364, 368, 371, 311, 318, 326,
+                                        330, 335, 338, 341, 349, 351, 278, 283, 285, 288, 293, 298, 305, 252, 257, 262,
+                                        268, 271, 273, 233, 240, 245, 246, 247, 204, 209, 210, 214, 215, 219, 226, 229,
+                                        230, 190, 194, 199, 168, 173, 179, 182, 184, 97, 102, 105, 112, 117, 120, 123,
+                                        130, 138, 147, 158, 165, 84, 88, 93, 58, 62, 67, 69, 71, 75, 79, 80, 55, 56,
+                                        512, 513, 516, 517, 527, 528, 532, 533, };
 
     private static final boolean jjCanMove_0(int hiByte, int i1, int i2, long l1, long l2) {
         switch (hiByte) {
@@ -2993,7 +3003,8 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
         Token matchedToken;
         int curPos = 0;
 
-        EOFLoop: for (;;) {
+        EOFLoop:
+        for (; ; ) {
             try {
                 curChar = input_stream.beginToken();
             } catch (final Exception e) {
@@ -3059,7 +3070,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
                 error_after = curPos <= 1 ? "" : input_stream.getImage();
             }
             throw new TokenMgrException(EOFSeen, curLexState, error_line, error_column, error_after, curChar,
-                TokenMgrException.LEXICAL_ERROR);
+                    TokenMgrException.LEXICAL_ERROR);
         }
     }
 
@@ -3160,7 +3171,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
     private void ReInitRounds() {
         int i;
         jjround = 0x80000001;
-        for (i = 536; i-- > 0;)
+        for (i = 536; i-- > 0; )
             jjrounds[i] = 0x80000000;
     }
 
@@ -3174,7 +3185,7 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
     public void SwitchTo(int lexState) {
         if (lexState >= 2 || lexState < 0)
             throw new TokenMgrException("Error: Ignoring invalid lexical state : " + lexState + ". State unchanged.",
-                TokenMgrException.INVALID_LEXICAL_STATE);
+                    TokenMgrException.INVALID_LEXICAL_STATE);
         else
             curLexState = lexState;
     }
@@ -3183,25 +3194,30 @@ public class CeresDBxSqlParserTokenManager implements CeresDBxSqlParserConstants
     public static final String[] lexStateNames = { "DEFAULT", "MULTI_LINE_COMMENT", };
 
     /** Lex State array. */
-    public static final int[]    jjnewLexState = { -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1,                           };
-    static final long[]          jjtoToken     = { 0xffffffffffffff81L, 0x7fffffffffffL, 0x1fdfffffffe000L, };
-    static final long[]          jjtoSkip      = { 0x7eL, 0x0L, 0x0L, };
-    static final long[]          jjtoSpecial   = { 0x0L, 0x0L, 0x0L, };
-    static final long[]          jjtoMore      = { 0x0L, 0x0L, 0x0L, };
-    protected SimpleCharStream   input_stream;
+    public static final int[]            jjnewLexState = { -1, -1, -1, 1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                                           -1, };
+    static final        long[]           jjtoToken     = { 0xffffffffffffff81L, 0x7fffffffffffL, 0x1fdfffffffe000L, };
+    static final        long[]           jjtoSkip      = { 0x7eL, 0x0L, 0x0L, };
+    static final        long[]           jjtoSpecial   = { 0x0L, 0x0L, 0x0L, };
+    static final        long[]           jjtoMore      = { 0x0L, 0x0L, 0x0L, };
+    protected           SimpleCharStream input_stream;
 
-    private final int[]          jjrounds      = new int[536];
-    private final int[]          jjstateSet    = new int[2 * 536];
-    private final StringBuilder  jjimage       = new StringBuilder();
-    private StringBuilder        image         = jjimage;
-    private int                  jjimageLen;
-    private int                  lengthOfMatch;
-    protected int                curChar;
+    private final int[]         jjrounds   = new int[536];
+    private final int[]         jjstateSet = new int[2 * 536];
+    private final StringBuilder jjimage    = new StringBuilder();
+    private       StringBuilder image      = jjimage;
+    private       int           jjimageLen;
+    private       int           lengthOfMatch;
+    protected     int           curChar;
 }

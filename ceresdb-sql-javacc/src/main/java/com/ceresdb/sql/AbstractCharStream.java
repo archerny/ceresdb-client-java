@@ -73,42 +73,42 @@ public abstract class AbstractCharStream implements CharStream {
     }
 
     /** Tab size for formatting. Usually in the range 1 to 8. */
-    private int      m_nTabSize         = 1;
+    private int m_nTabSize = 1;
 
     /** Internal circular buffer */
     protected char[] buffer;
 
     /** Overall buffer size - same as buffer.length */
-    protected int    bufsize;
+    protected int bufsize;
 
     /** Current read position in buffer. */
-    protected int    bufpos;
+    protected int bufpos;
 
     /** The number of unoccupied buffer array positions */
-    protected int    available;
+    protected int available;
 
     /** The first array index (of `buffer`) that the current token starts */
-    protected int    tokenBegin;
+    protected int tokenBegin;
 
     /** Characters in the backup/pushBack buffer */
-    protected int    inBuf;
-    protected int    maxNextCharInd;
+    protected int inBuf;
+    protected int maxNextCharInd;
 
-    private int[]    m_aBufLine;
-    private int[]    m_aBufColumn;
+    private int[] m_aBufLine;
+    private int[] m_aBufColumn;
 
     // Current line number
-    private int      m_nLineNo;
+    private int m_nLineNo;
     // Current column number
-    private int      m_nColumnNo;
+    private int m_nColumnNo;
 
     // Was the previous character a "\r" char?
-    private boolean  m_bPrevCharIsCR;
+    private boolean m_bPrevCharIsCR;
     // Was the previous character a "\n" char?
-    private boolean  m_bPrevCharIsLF;
+    private boolean m_bPrevCharIsLF;
 
     // Is line/column tracking enabled?
-    private boolean  m_bTrackLineColumn = true;
+    private boolean m_bTrackLineColumn = true;
 
     /** Constructor. */
     public AbstractCharStream(final int nStartLine, final int nStartColumn, final int nBufferSize) {
@@ -362,8 +362,9 @@ public abstract class AbstractCharStream implements CharStream {
 
     public void backup(final int nAmount) {
         if (nAmount > bufsize)
-            throw new IllegalStateException("Cannot back " + nAmount
-                                            + " chars which is larger than the internal buffer size (" + bufsize + ")");
+            throw new IllegalStateException(
+                    "Cannot back " + nAmount + " chars which is larger than the internal buffer size (" + bufsize
+                    + ")");
 
         inBuf += nAmount;
         bufpos -= nAmount;

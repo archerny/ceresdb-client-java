@@ -71,14 +71,14 @@ public class ParseException extends Exception {
      * this object has been created due to a parse error, the token
      * followng this token will (therefore) be the first error token.
      */
-    public Token    currentToken;
+    public Token currentToken;
 
     /**
      * Each entry in this array is an array of integers.  Each array
      * of integers represents a sequence of tokens (by their ordinal
      * values) that is expected at this point of the parse.
      */
-    public int[][]  expectedTokenSequences;
+    public int[][] expectedTokenSequences;
 
     /**
      * This is a reference to the "tokenImage" array of the generated
@@ -129,14 +129,14 @@ public class ParseException extends Exception {
             tok = tok.next;
         }
         sb.append("\" at line ").append(currentToken.next.beginLine).append(", column ")
-            .append(currentToken.next.beginColumn);
+                .append(currentToken.next.beginColumn);
         sb.append(".").append(EOL);
 
         if (expectedTokenSequences.length == 0) {
             // Nothing to add here
         } else {
             sb.append(EOL).append("Was expecting").append(expectedTokenSequences.length == 1 ? ":" : " one of:")
-                .append(EOL).append(EOL).append(expected);
+                    .append(EOL).append(EOL).append(expected);
         }
 
         return sb.toString();

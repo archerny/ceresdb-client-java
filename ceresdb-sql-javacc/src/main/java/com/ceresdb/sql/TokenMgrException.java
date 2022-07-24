@@ -26,7 +26,7 @@ public class TokenMgrException extends RuntimeException {
      * Increment only if the <i>serialized</i> form of the
      * class changes.
      */
-    private static final long serialVersionUID      = 1L;
+    private static final long serialVersionUID = 1L;
 
     /*
      * Ordinals for various reasons why an Error of this type can be thrown.
@@ -35,28 +35,28 @@ public class TokenMgrException extends RuntimeException {
     /**
      * Lexical error occurred.
      */
-    public static final int   LEXICAL_ERROR         = 0;
+    public static final int LEXICAL_ERROR = 0;
 
     /**
      * An attempt was made to create a second instance of a static token manager.
      */
-    public static final int   STATIC_LEXER_ERROR    = 1;
+    public static final int STATIC_LEXER_ERROR = 1;
 
     /**
      * Tried to change to an invalid lexical state.
      */
-    public static final int   INVALID_LEXICAL_STATE = 2;
+    public static final int INVALID_LEXICAL_STATE = 2;
 
     /**
      * Detected (and bailed out of) an infinite loop in the token manager.
      */
-    public static final int   LOOP_DETECTED         = 3;
+    public static final int LOOP_DETECTED = 3;
 
     /**
      * Indicates the reason why the exception is thrown. It will have
      * one of the above 4 values.
      */
-    int                       errorCode;
+    int errorCode;
 
     /**
      * Replaces unprintable characters by their escaped (or unicode escaped)
@@ -116,12 +116,13 @@ public class TokenMgrException extends RuntimeException {
      *    curchar     : the offending character
      * Note: You can customize the lexical error message by modifying this method.
      */
-    protected static String LexicalErr(boolean EOFSeen, int lexState, int errorLine, int errorColumn,
-                                       String errorAfter, int curChar) {
+    protected static String LexicalErr(boolean EOFSeen, int lexState, int errorLine, int errorColumn, String errorAfter,
+                                       int curChar) {
         char curChar1 = (char) curChar;
-        return ("Lexical error at line " + errorLine + ", column " + errorColumn + ".  Encountered: "
-                + (EOFSeen ? "<EOF> " : ("\"" + addEscapes(String.valueOf(curChar1)) + "\"") + " (" + curChar + "), ")
-                + "after : \"" + addEscapes(errorAfter) + "\"");
+        return ("Lexical error at line " + errorLine + ", column " + errorColumn + ".  Encountered: " + (EOFSeen ?
+                "<EOF> " :
+                ("\"" + addEscapes(String.valueOf(curChar1)) + "\"") + " (" + curChar + "), ") + "after : \""
+                + addEscapes(errorAfter) + "\"");
     }
 
     /**
@@ -141,6 +142,7 @@ public class TokenMgrException extends RuntimeException {
     /*
      * Constructors of various flavors follow.
      */
+
     /** No arg constructor. */
     public TokenMgrException() {
     }

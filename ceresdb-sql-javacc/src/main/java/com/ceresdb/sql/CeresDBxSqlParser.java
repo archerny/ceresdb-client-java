@@ -27,13 +27,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
-    private static final boolean             DEBUG      = false;
+    private static final boolean DEBUG = false;
 
-    private static final Logger              log        = LoggerFactory.getLogger(CeresDBxSqlParser.class);
+    private static final Logger log = LoggerFactory.getLogger(CeresDBxSqlParser.class);
 
     private final List<CeresDBxSqlStatement> statements = new ArrayList<>();
 
-    private ParseHandler                     handler;
+    private ParseHandler handler;
 
     private boolean tokenIn(int tokenIndex, int... tokens) {
         boolean matched = false;
@@ -61,7 +61,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
     }
 
     public static CeresDBxSqlStatement[] parse(String sql, ParseHandler handler) {
-        CeresDBxSqlStatement[] stmts = new CeresDBxSqlStatement[] { new CeresDBxSqlStatement(sql, StatementType.UNKNOWN) };
+        CeresDBxSqlStatement[] stmts = new CeresDBxSqlStatement[] {
+                new CeresDBxSqlStatement(sql, StatementType.UNKNOWN) };
 
         if (sql == null || sql.isEmpty()) {
             return stmts;
@@ -75,8 +76,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 throw new IllegalArgumentException(e);
             } else {
                 log.warn(
-                    "{}. If you believe the SQL is valid, please feel free to open an issue on Github with this warning and the following SQL attached.\n{}",
-                    e.getMessage(), sql);
+                        "{}. If you believe the SQL is valid, please feel free to open an issue on Github with this warning and the following SQL attached.\n{}",
+                        e.getMessage(), sql);
             }
         }
 
@@ -105,7 +106,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
     final public CeresDBxSqlStatement[] sql() throws ParseException {
         stmts();
         addStatement();
-        label_1: while (true) {
+        label_1:
+        while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case SEMICOLON: {
                     break;
@@ -113,7 +115,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 default:
                     break label_1;
             }
-            label_2: while (true) {
+            label_2:
+            while (true) {
                 jj_consume_token(SEMICOLON);
                 if (jj_2_1(2)) {
                 } else {
@@ -561,7 +564,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                         jj_consume_token(LPAREN);
                         columnExprList();
                         jj_consume_token(RPAREN);
-                        label_3: while (true) {
+                        label_3:
+                        while (true) {
                             if (jj_2_14(2)) {
                             } else {
                                 break label_3;
@@ -617,7 +621,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
         if (jj_2_19(2)) {
             jj_consume_token(FROM);
             tableClause(true);
-            label_4: while (true) {
+            label_4:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -635,7 +640,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             jj_consume_token(INNER);
             jj_consume_token(JOIN);
             tableClause(true);
-            label_5: while (true) {
+            label_5:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -653,7 +659,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             jj_consume_token(LEFT);
             jj_consume_token(JOIN);
             tableClause(true);
-            label_6: while (true) {
+            label_6:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -671,7 +678,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             jj_consume_token(RIGHT);
             jj_consume_token(JOIN);
             tableClause(true);
-            label_7: while (true) {
+            label_7:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -688,7 +696,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
         if (jj_2_23(2)) {
             jj_consume_token(JOIN);
             tableClause(true);
-            label_8: while (true) {
+            label_8:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -713,7 +722,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
         jj_consume_token(WITH);
         token_source.enterToken(WITH);
         withExpr();
-        label_9: while (true) {
+        label_9:
+        while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case COMMA: {
                     break;
@@ -833,7 +843,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
     // columns
     final public void columnExprList() throws ParseException {
         columnsExpr();
-        label_10: while (true) {
+        label_10:
+        while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case COMMA: {
                     break;
@@ -850,7 +861,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
         nestedExpr();
         if (jj_2_46(1)) {
             if (jj_2_38(1)) {
-                label_11: while (true) {
+                label_11:
+                while (true) {
                     if (getToken(1).kind == FLOATING_LITERAL) {
                         jj_consume_token(FLOATING_LITERAL);
                     } else {
@@ -873,7 +885,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             } else {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case LBRACKET: {
-                        label_12: while (true) {
+                        label_12:
+                        while (true) {
                             jj_consume_token(LBRACKET);
                             anyExprList();
                             jj_consume_token(RBRACKET);
@@ -930,7 +943,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                             }
                             nestedExpr();
                         } else if (jj_2_42(2) && (noAndWithinBetween())) {
-                            label_13: while (true) {
+                            label_13:
+                            while (true) {
                                 calcExpr();
                                 if (jj_2_37(2) && (noAndWithinBetween())) {
                                 } else {
@@ -970,7 +984,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
     final public void columnsExpr() throws ParseException {
         if (jj_2_60(2147483647)) {
             allColumnsExpr();
-            label_14: while (true) {
+            label_14:
+            while (true) {
                 if (jj_2_47(2)) {
                 } else {
                     break label_14;
@@ -1000,7 +1015,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             nestedExpr();
             if (jj_2_59(1)) {
                 if (jj_2_51(1)) {
-                    label_15: while (true) {
+                    label_15:
+                    while (true) {
                         if (getToken(1).kind == FLOATING_LITERAL) {
                             jj_consume_token(FLOATING_LITERAL);
                         } else {
@@ -1023,7 +1039,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 } else {
                     switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                         case LBRACKET: {
-                            label_16: while (true) {
+                            label_16:
+                            while (true) {
                                 jj_consume_token(LBRACKET);
                                 anyExprList();
                                 jj_consume_token(RBRACKET);
@@ -1080,7 +1097,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                                 }
                                 nestedExpr();
                             } else if (jj_2_55(2) && (noAndWithinBetween())) {
-                                label_17: while (true) {
+                                label_17:
+                                while (true) {
                                     calcExpr();
                                     if (jj_2_50(2) && (noAndWithinBetween())) {
                                     } else {
@@ -1274,7 +1292,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             } else {
                 ;
             }
-            label_18: while (true) {
+            label_18:
+            while (true) {
                 jj_consume_token(WHEN);
                 nestedExpr();
                 jj_consume_token(THEN);
@@ -1314,7 +1333,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case DOT:
                     case FLOATING_LITERAL: {
-                        label_19: while (true) {
+                        label_19:
+                        while (true) {
                             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                                 case FLOATING_LITERAL: {
                                     jj_consume_token(FLOATING_LITERAL);
@@ -1341,7 +1361,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                         break;
                     }
                     case LBRACKET: {
-                        label_20: while (true) {
+                        label_20:
+                        while (true) {
                             jj_consume_token(LBRACKET);
                             anyExprList();
                             jj_consume_token(RBRACKET);
@@ -1398,7 +1419,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                             }
                             nestedExpr();
                         } else if (jj_2_70(2) && (noAndWithinBetween())) {
-                            label_21: while (true) {
+                            label_21:
+                            while (true) {
                                 calcExpr();
                                 if (jj_2_66(2) && (noAndWithinBetween())) {
                                 } else {
@@ -1535,7 +1557,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 break;
             }
             case HASH: {
-                label_22: while (true) {
+                label_22:
+                while (true) {
                     macro();
                     if (jj_2_83(2)) {
                     } else {
@@ -1660,7 +1683,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                         case BACK_QUOTED_NAME:
                         case DOUBLE_QUOTED_NAME: {
                             anyIdentifier();
-                            label_23: while (true) {
+                            label_23:
+                            while (true) {
                                 if (jj_2_84(2)) {
                                 } else {
                                     break label_23;
@@ -1692,7 +1716,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
     // expressions
     final public void anyExprList() throws ParseException {
         anyExpr();
-        label_24: while (true) {
+        label_24:
+        while (true) {
             if (jj_2_88(1)) {
             } else {
                 break label_24;
@@ -1710,7 +1735,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
 
     final public void anyExpr() throws ParseException {
         anyNestedExpr();
-        label_25: while (true) {
+        label_25:
+        while (true) {
             if (jj_2_91(2)) {
             } else {
                 break label_25;
@@ -1796,7 +1822,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 ;
             }
             anyColumnExpr();
-            label_26: while (true) {
+            label_26:
+            while (true) {
                 if (jj_2_93(1)) {
                 } else {
                     break label_26;
@@ -1862,7 +1889,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 break;
             }
             case HASH: {
-                label_27: while (true) {
+                label_27:
+                while (true) {
                     macro();
                     if (jj_2_99(2)) {
                     } else {
@@ -2213,7 +2241,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                 jj_consume_token(-1);
                 throw new ParseException();
         }
-        label_28: while (true) {
+        label_28:
+        while (true) {
             if (jj_2_102(2)) {
             } else {
                 break label_28;
@@ -2372,7 +2401,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
 
     final public void settingExprList() throws ParseException {
         settingExpr();
-        label_29: while (true) {
+        label_29:
+        while (true) {
             switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                 case COMMA: {
                     break;
@@ -2983,7 +3013,8 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
             jj_consume_token(LPAREN);
             t = jj_consume_token(STRING_LITERAL);
             params.add(SqlUtils.unescape(t.image));
-            label_30: while (true) {
+            label_30:
+            while (true) {
                 switch (jj_ntk == -1 ? jj_ntk_f() : jj_ntk) {
                     case COMMA: {
                         break;
@@ -5500,167 +5531,248 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                                                                                                 jj_scanpos = xsp;
                                                                                                 if (jj_scan_token(29)) {
                                                                                                     jj_scanpos = xsp;
-                                                                                                    if (jj_scan_token(30)) {
+                                                                                                    if (jj_scan_token(
+                                                                                                            30)) {
                                                                                                         jj_scanpos = xsp;
-                                                                                                        if (jj_scan_token(31)) {
+                                                                                                        if (jj_scan_token(
+                                                                                                                31)) {
                                                                                                             jj_scanpos = xsp;
-                                                                                                            if (jj_scan_token(32)) {
+                                                                                                            if (jj_scan_token(
+                                                                                                                    32)) {
                                                                                                                 jj_scanpos = xsp;
-                                                                                                                if (jj_scan_token(33)) {
+                                                                                                                if (jj_scan_token(
+                                                                                                                        33)) {
                                                                                                                     jj_scanpos = xsp;
-                                                                                                                    if (jj_scan_token(34)) {
+                                                                                                                    if (jj_scan_token(
+                                                                                                                            34)) {
                                                                                                                         jj_scanpos = xsp;
-                                                                                                                        if (jj_scan_token(35)) {
+                                                                                                                        if (jj_scan_token(
+                                                                                                                                35)) {
                                                                                                                             jj_scanpos = xsp;
-                                                                                                                            if (jj_scan_token(36)) {
+                                                                                                                            if (jj_scan_token(
+                                                                                                                                    36)) {
                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                if (jj_scan_token(37)) {
+                                                                                                                                if (jj_scan_token(
+                                                                                                                                        37)) {
                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                    if (jj_scan_token(38)) {
+                                                                                                                                    if (jj_scan_token(
+                                                                                                                                            38)) {
                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                        if (jj_scan_token(39)) {
+                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                39)) {
                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                            if (jj_scan_token(40)) {
+                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                    40)) {
                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                if (jj_scan_token(41)) {
+                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                        41)) {
                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                    if (jj_scan_token(42)) {
+                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                            42)) {
                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                        if (jj_scan_token(43)) {
+                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                43)) {
                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                            if (jj_scan_token(44)) {
+                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                    44)) {
                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                if (jj_scan_token(45)) {
+                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                        45)) {
                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                    if (jj_scan_token(46)) {
+                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                            46)) {
                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                        if (jj_scan_token(47)) {
+                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                47)) {
                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                            if (jj_scan_token(48)) {
+                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                    48)) {
                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                if (jj_scan_token(50)) {
+                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                        50)) {
                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                    if (jj_scan_token(49)) {
+                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                            49)) {
                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                        if (jj_scan_token(51)) {
+                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                51)) {
                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                            if (jj_scan_token(52)) {
+                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                    52)) {
                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                if (jj_scan_token(53)) {
+                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                        53)) {
                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                    if (jj_scan_token(54)) {
+                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                            54)) {
                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                        if (jj_scan_token(55)) {
+                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                55)) {
                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                            if (jj_scan_token(56)) {
+                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                    56)) {
                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                if (jj_scan_token(57)) {
+                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                        57)) {
                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                    if (jj_scan_token(58)) {
+                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                            58)) {
                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                        if (jj_scan_token(59)) {
+                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                59)) {
                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                            if (jj_scan_token(60)) {
+                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                    60)) {
                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                if (jj_scan_token(61)) {
+                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                        61)) {
                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                    if (jj_scan_token(62)) {
+                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                            62)) {
                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                        if (jj_scan_token(63)) {
+                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                63)) {
                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                            if (jj_scan_token(64)) {
+                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                    64)) {
                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                if (jj_scan_token(65)) {
+                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                        65)) {
                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                    if (jj_scan_token(66)) {
+                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                            66)) {
                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                        if (jj_scan_token(67)) {
+                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                67)) {
                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                            if (jj_scan_token(68)) {
+                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                    68)) {
                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                if (jj_scan_token(69)) {
+                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                        69)) {
                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                    if (jj_scan_token(70)) {
+                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                            70)) {
                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                        if (jj_scan_token(71)) {
+                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                71)) {
                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                            if (jj_scan_token(72)) {
+                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                    72)) {
                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                if (jj_scan_token(73)) {
+                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                        73)) {
                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                    if (jj_scan_token(74)) {
+                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                            74)) {
                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                        if (jj_scan_token(75)) {
+                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                75)) {
                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                            if (jj_scan_token(76)) {
+                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                    76)) {
                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                if (jj_scan_token(77)) {
+                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                        77)) {
                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                    if (jj_scan_token(78)) {
+                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                            78)) {
                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                        if (jj_scan_token(81)) {
+                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                81)) {
                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                            if (jj_scan_token(79)) {
+                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                    79)) {
                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                if (jj_scan_token(80)) {
+                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                        80)) {
                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(82)) {
+                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                            82)) {
                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(83)) {
+                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                83)) {
                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(84)) {
+                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                    84)) {
                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(85)) {
+                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                        85)) {
                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(86)) {
+                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                            86)) {
                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(87)) {
+                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                87)) {
                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(88)) {
+                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                    88)) {
                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(89)) {
+                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                        89)) {
                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(90)) {
+                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                            90)) {
                                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(91)) {
+                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                91)) {
                                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(95)) {
+                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                    95)) {
                                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(96)) {
+                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                        96)) {
                                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(93)) {
+                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                            93)) {
                                                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(92)) {
+                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                92)) {
                                                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(94)) {
+                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                    94)) {
                                                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(97)) {
+                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                        97)) {
                                                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(98)) {
+                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                            98)) {
                                                                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(99)) {
+                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                99)) {
                                                                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(100)) {
+                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                    100)) {
                                                                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(101)) {
+                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                        101)) {
                                                                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(102)) {
+                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                            102)) {
                                                                                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(103)) {
+                                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                103)) {
                                                                                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(104)) {
+                                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                    104)) {
                                                                                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(105)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                        105)) {
                                                                                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(106)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                            106)) {
                                                                                                                                                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(107)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                                107)) {
                                                                                                                                                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(108)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                                    108)) {
                                                                                                                                                                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(109)) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                                        109)) {
                                                                                                                                                                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(110))
+                                                                                                                                                                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                                                                                                                                                            110))
                                                                                                                                                                                                                                                                                                                                                                                                                                         return true;
                                                                                                                                                                                                                                                                                                                                                                                                                                 }
                                                                                                                                                                                                                                                                                                                                                                                                                             }
@@ -5823,99 +5935,146 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
                                                                                                 jj_scanpos = xsp;
                                                                                                 if (jj_scan_token(29)) {
                                                                                                     jj_scanpos = xsp;
-                                                                                                    if (jj_scan_token(30)) {
+                                                                                                    if (jj_scan_token(
+                                                                                                            30)) {
                                                                                                         jj_scanpos = xsp;
-                                                                                                        if (jj_scan_token(31)) {
+                                                                                                        if (jj_scan_token(
+                                                                                                                31)) {
                                                                                                             jj_scanpos = xsp;
-                                                                                                            if (jj_scan_token(39)) {
+                                                                                                            if (jj_scan_token(
+                                                                                                                    39)) {
                                                                                                                 jj_scanpos = xsp;
-                                                                                                                if (jj_scan_token(40)) {
+                                                                                                                if (jj_scan_token(
+                                                                                                                        40)) {
                                                                                                                     jj_scanpos = xsp;
-                                                                                                                    if (jj_scan_token(41)) {
+                                                                                                                    if (jj_scan_token(
+                                                                                                                            41)) {
                                                                                                                         jj_scanpos = xsp;
-                                                                                                                        if (jj_scan_token(42)) {
+                                                                                                                        if (jj_scan_token(
+                                                                                                                                42)) {
                                                                                                                             jj_scanpos = xsp;
-                                                                                                                            if (jj_scan_token(43)) {
+                                                                                                                            if (jj_scan_token(
+                                                                                                                                    43)) {
                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                if (jj_scan_token(44)) {
+                                                                                                                                if (jj_scan_token(
+                                                                                                                                        44)) {
                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                    if (jj_scan_token(45)) {
+                                                                                                                                    if (jj_scan_token(
+                                                                                                                                            45)) {
                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                        if (jj_scan_token(46)) {
+                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                46)) {
                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                            if (jj_scan_token(47)) {
+                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                    47)) {
                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                if (jj_scan_token(48)) {
+                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                        48)) {
                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                    if (jj_scan_token(52)) {
+                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                            52)) {
                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                        if (jj_scan_token(56)) {
+                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                56)) {
                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                            if (jj_scan_token(60)) {
+                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                    60)) {
                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                if (jj_scan_token(62)) {
+                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                        62)) {
                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                    if (jj_scan_token(67)) {
+                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                            67)) {
                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                        if (jj_scan_token(68)) {
+                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                68)) {
                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                            if (jj_scan_token(74)) {
+                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                    74)) {
                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                if (jj_scan_token(76)) {
+                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                        76)) {
                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                    if (jj_scan_token(77)) {
+                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                            77)) {
                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                        if (jj_scan_token(78)) {
+                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                78)) {
                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                            if (jj_scan_token(79)) {
+                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                    79)) {
                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                if (jj_scan_token(80)) {
+                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                        80)) {
                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                    if (jj_scan_token(84)) {
+                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                            84)) {
                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                        if (jj_scan_token(85)) {
+                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                85)) {
                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                            if (jj_scan_token(86)) {
+                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                    86)) {
                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                if (jj_scan_token(87)) {
+                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                        87)) {
                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                    if (jj_scan_token(88)) {
+                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                            88)) {
                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                        if (jj_scan_token(89)) {
+                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                89)) {
                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                            if (jj_scan_token(90)) {
+                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                    90)) {
                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                if (jj_scan_token(91)) {
+                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                        91)) {
                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                    if (jj_scan_token(95)) {
+                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                            95)) {
                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                        if (jj_scan_token(96)) {
+                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                96)) {
                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                            if (jj_scan_token(97)) {
+                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                    97)) {
                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                if (jj_scan_token(93)) {
+                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                        93)) {
                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                    if (jj_scan_token(100)) {
+                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                            100)) {
                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                        if (jj_scan_token(101)) {
+                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                101)) {
                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                            if (jj_scan_token(102)) {
+                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                    102)) {
                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                if (jj_scan_token(103)) {
+                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                        103)) {
                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                    if (jj_scan_token(104)) {
+                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                            104)) {
                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                        if (jj_scan_token(105)) {
+                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                105)) {
                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                            if (jj_scan_token(106)) {
+                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                    106)) {
                                                                                                                                                                                                                                                                                 jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                if (jj_scan_token(107)) {
+                                                                                                                                                                                                                                                                                if (jj_scan_token(
+                                                                                                                                                                                                                                                                                        107)) {
                                                                                                                                                                                                                                                                                     jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                    if (jj_scan_token(108)) {
+                                                                                                                                                                                                                                                                                    if (jj_scan_token(
+                                                                                                                                                                                                                                                                                            108)) {
                                                                                                                                                                                                                                                                                         jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                        if (jj_scan_token(109)) {
+                                                                                                                                                                                                                                                                                        if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                109)) {
                                                                                                                                                                                                                                                                                             jj_scanpos = xsp;
-                                                                                                                                                                                                                                                                                            if (jj_scan_token(110))
+                                                                                                                                                                                                                                                                                            if (jj_scan_token(
+                                                                                                                                                                                                                                                                                                    110))
                                                                                                                                                                                                                                                                                                 return true;
                                                                                                                                                                                                                                                                                         }
                                                                                                                                                                                                                                                                                     }
@@ -7556,17 +7715,17 @@ public class CeresDBxSqlParser implements CeresDBxSqlParserConstants {
 
     /** Generated Token Manager. */
     public CeresDBxSqlParserTokenManager token_source;
-    SimpleCharStream                     jj_input_stream;
+    SimpleCharStream jj_input_stream;
     /** Current token. */
-    public Token                         token;
+    public  Token token;
     /** Next token. */
-    public Token                         jj_nt;
-    private int                          jj_ntk;
-    private Token                        jj_scanpos, jj_lastpos;
-    private int                          jj_la;
+    public  Token jj_nt;
+    private int   jj_ntk;
+    private Token jj_scanpos, jj_lastpos;
+    private int     jj_la;
     /** Whether we are looking ahead. */
-    private boolean                      jj_lookingAhead = false;
-    private boolean                      jj_semLA;
+    private boolean jj_lookingAhead = false;
+    private boolean jj_semLA;
 
     /**
      * Constructor with InputStream.
