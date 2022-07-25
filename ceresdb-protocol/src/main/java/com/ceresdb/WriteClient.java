@@ -371,7 +371,7 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
                         return true;
                     }
                     throw new StreamException(
-                        String.format("Invalid metric %s, only can write %s.", rs.getMetric(), this.metric));
+                            String.format("Invalid metric %s, only can write %s.", rs.getMetric(), this.metric));
                 });
 
                 rpcObs.onNext(toWriteRequestObj(data));

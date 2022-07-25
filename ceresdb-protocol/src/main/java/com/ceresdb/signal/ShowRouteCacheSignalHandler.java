@@ -65,7 +65,7 @@ public class ShowRouteCacheSignalHandler implements SignalHandler {
                     file.getAbsoluteFile());
 
             try (PrintWriter out = new PrintWriter(
-                new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
+                    new OutputStreamWriter(new FileOutputStream(file, true), StandardCharsets.UTF_8))) {
                 final Display.Printer printer = new Display.DefaultPrinter(out);
                 for (final CeresDBxClient ins : instances) {
                     printer.print("clientId=").println(ins.id());

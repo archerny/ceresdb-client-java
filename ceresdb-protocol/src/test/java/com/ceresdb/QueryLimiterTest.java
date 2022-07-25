@@ -94,7 +94,7 @@ public class QueryLimiterTest {
     public void blockingTimeoutWriteLimitTest() throws ExecutionException, InterruptedException {
         final int timeoutSecs = 2;
         final QueryLimiter limiter = new QueryClient.DefaultQueryLimiter(1,
-            new LimitedPolicy.BlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
+                new LimitedPolicy.BlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
         final QueryRequest req = QueryRequest.newBuilder().forMetrics("test").ql("select * from test").build();
 
         // consume the permits
@@ -114,7 +114,7 @@ public class QueryLimiterTest {
     public void abortOnBlockingTimeoutWriteLimitTest() throws ExecutionException, InterruptedException {
         final int timeoutSecs = 2;
         final QueryLimiter limiter = new QueryClient.DefaultQueryLimiter(1,
-            new LimitedPolicy.AbortOnBlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
+                new LimitedPolicy.AbortOnBlockingTimeoutPolicy(timeoutSecs, TimeUnit.SECONDS));
         final QueryRequest req = QueryRequest.newBuilder().forMetrics("test").ql("select * from test").build();
 
         // consume the permits

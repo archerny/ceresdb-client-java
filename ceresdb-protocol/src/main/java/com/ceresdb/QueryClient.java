@@ -88,7 +88,7 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
         final Executor pool = this.opts.getAsyncPool();
         this.asyncPool = pool != null ? pool : new SerializingExecutor("query_client");
         this.queryLimiter = new DefaultQueryLimiter(this.opts.getMaxInFlightQueryRequests(),
-            this.opts.getLimitedPolicy());
+                this.opts.getLimitedPolicy());
         return true;
     }
 

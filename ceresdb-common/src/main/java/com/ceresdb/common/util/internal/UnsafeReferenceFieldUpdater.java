@@ -28,8 +28,8 @@ final class UnsafeReferenceFieldUpdater<U, W> implements ReferenceFieldUpdater<U
     private final long            offset;
     private final sun.misc.Unsafe unsafe;
 
-    UnsafeReferenceFieldUpdater(sun.misc.Unsafe unsafe, Class<? super U> tClass,
-                                String fieldName) throws NoSuchFieldException {
+    UnsafeReferenceFieldUpdater(sun.misc.Unsafe unsafe, Class<? super U> tClass, String fieldName)
+            throws NoSuchFieldException {
         final Field field = tClass.getDeclaredField(fieldName);
         if (unsafe == null) {
             throw new NullPointerException("unsafe");

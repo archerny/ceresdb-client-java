@@ -378,8 +378,8 @@ public class WriteClientTest {
         writeSplit(8, 8);
     }
 
-    private void writeSplit(final int maxWriteSize, final int partOfSuccess) throws ExecutionException,
-                                                                             InterruptedException {
+    private void writeSplit(final int maxWriteSize, final int partOfSuccess)
+            throws ExecutionException, InterruptedException {
         // re-init
         this.writeClient.shutdownGracefully();
         final WriteOptions writeOpts = new WriteOptions();

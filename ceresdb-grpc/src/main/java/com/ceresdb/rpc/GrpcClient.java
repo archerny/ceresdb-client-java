@@ -198,7 +198,8 @@ public class GrpcClient implements RpcClient {
     public <Req, Resp> Resp invokeSync(final Endpoint endpoint, //
                                        final Req request, //
                                        final Context ctx, //
-                                       final long timeoutMs) throws RemotingException {
+                                       final long timeoutMs)
+            throws RemotingException {
         final long timeout = calcTimeout(timeoutMs);
         final CompletableFuture<Resp> future = new CompletableFuture<>();
 

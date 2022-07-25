@@ -75,14 +75,14 @@ public class ClientRequestLimitInterceptor implements ClientInterceptor {
         return MetricsUtil.timer(LimitMetricRegistry.RPC_LIMITER, "acquire_time", methodName)
                 .timeSupplier(() -> this.limiter.acquire(() -> methodName))
                 .map(listener -> (ClientCall<ReqT, RespT>) new ForwardingClientCall.SimpleForwardingClientCall<ReqT, RespT>(
-                    next.newCall(method, callOpts)) {
+                        next.newCall(method, callOpts)) {
 
                     private final AtomicBoolean done = new AtomicBoolean(false);
 
                     @Override
                     public void start(final Listener<RespT> respListener, final Metadata headers) {
                         super.start(new ForwardingClientCallListener.SimpleForwardingClientCallListener<RespT>(
-                            respListener) {
+                                respListener) {
 
                             @Override
                             public void onClose(final Status status, final Metadata trailers) {

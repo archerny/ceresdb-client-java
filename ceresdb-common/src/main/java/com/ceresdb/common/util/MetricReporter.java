@@ -207,15 +207,15 @@ public class MetricReporter {
          */
         public MetricReporter build() {
             return new MetricReporter(this.registry, //
-                this.output, //
-                this.prefix, //
-                this.locale, //
-                this.clock, //
-                this.timeZone, //
-                this.rateUnit, //
-                this.durationUnit, //
-                this.filter, //
-                this.disabledMetricAttributes);
+                    this.output, //
+                    this.prefix, //
+                    this.locale, //
+                    this.clock, //
+                    this.timeZone, //
+                    this.rateUnit, //
+                    this.durationUnit, //
+                    this.filter, //
+                    this.disabledMetricAttributes);
         }
     }
 
@@ -235,15 +235,15 @@ public class MetricReporter {
     private final DateFormat           dateFormat;
 
     private MetricReporter(MetricRegistry registry, //
-                           PrintStream output, //
-                           String prefix, //
-                           Locale locale, //
-                           Clock clock, //
-                           TimeZone timeZone, //
-                           TimeUnit rateUnit, //
-                           TimeUnit durationUnit, //
-                           MetricFilter filter, //
-                           Set<MetricAttribute> disabledMetricAttributes) {
+            PrintStream output, //
+            String prefix, //
+            Locale locale, //
+            Clock clock, //
+            TimeZone timeZone, //
+            TimeUnit rateUnit, //
+            TimeUnit durationUnit, //
+            MetricFilter filter, //
+            Set<MetricAttribute> disabledMetricAttributes) {
         this.registry = registry;
         this.output = output;
         this.prefix = prefix;
