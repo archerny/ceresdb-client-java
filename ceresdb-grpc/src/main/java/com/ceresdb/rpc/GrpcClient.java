@@ -92,20 +92,20 @@ public class GrpcClient implements RpcClient {
     private static final Logger                LOG                   = LoggerFactory.getLogger(GrpcClient.class);
 
     private static final SharedThreadPool      SHARED_ASYNC_POOL     = new SharedThreadPool(
-        new ObjectPool.Resource<ExecutorService>() {
+            new ObjectPool.Resource<ExecutorService>() {
 
-                                                                             @Override
-                                                                             public ExecutorService create() {
-                                                                                 return createDefaultRpcExecutor();
-                                                                             }
+                                                                                 @Override
+                                                                                 public ExecutorService create() {
+                                                                                     return createDefaultRpcExecutor();
+                                                                                 }
 
-                                                                             @Override
-                                                                             public void close(final ExecutorService ins) {
-                                                                                 ExecutorServiceHelper
-                                                                                         .shutdownAndAwaitTermination(
-                                                                                                 ins);
-                                                                             }
-                                                                         });
+                                                                                 @Override
+                                                                                 public void close(final ExecutorService ins) {
+                                                                                     ExecutorServiceHelper
+                                                                                             .shutdownAndAwaitTermination(
+                                                                                                     ins);
+                                                                                 }
+                                                                             });
 
     private static final int                   CONN_RESET_THRESHOLD  = SystemPropertyUtil
             .getInt(OptKeys.GRPC_CONN_RESET_THRESHOLD, 3);
@@ -486,7 +486,7 @@ public class GrpcClient implements RpcClient {
             methodsLimitPercent.forEach(limiterBuilder::partition);
 
             return new ClientRequestLimitInterceptor(limiterBuilder.partitionByMethod().build(),
-                methodsLimitPercent::containsKey);
+                    methodsLimitPercent::containsKey);
         }
     }
 
