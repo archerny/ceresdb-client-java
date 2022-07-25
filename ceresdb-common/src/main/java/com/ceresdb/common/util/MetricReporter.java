@@ -235,15 +235,15 @@ public class MetricReporter {
     private final DateFormat           dateFormat;
 
     private MetricReporter(MetricRegistry registry, //
-            PrintStream output, //
-            String prefix, //
-            Locale locale, //
-            Clock clock, //
-            TimeZone timeZone, //
-            TimeUnit rateUnit, //
-            TimeUnit durationUnit, //
-            MetricFilter filter, //
-            Set<MetricAttribute> disabledMetricAttributes) {
+                           PrintStream output, //
+                           String prefix, //
+                           Locale locale, //
+                           Clock clock, //
+                           TimeZone timeZone, //
+                           TimeUnit rateUnit, //
+                           TimeUnit durationUnit, //
+                           MetricFilter filter, //
+                           Set<MetricAttribute> disabledMetricAttributes) {
         this.registry = registry;
         this.output = output;
         this.prefix = prefix;

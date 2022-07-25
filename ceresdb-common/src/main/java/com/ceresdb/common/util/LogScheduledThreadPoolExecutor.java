@@ -59,7 +59,7 @@ public class LogScheduledThreadPoolExecutor extends ScheduledThreadPoolExecutor 
     }
 
     public LogScheduledThreadPoolExecutor(int corePoolSize, ThreadFactory threadFactory,
-            RejectedExecutionHandler handler, String name) {
+                                          RejectedExecutionHandler handler, String name) {
         super(corePoolSize, threadFactory, handler);
         this.corePoolSize = corePoolSize;
         this.name = name;
