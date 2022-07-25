@@ -154,9 +154,9 @@ public class HttpManagementClient implements Management {
     private Endpoint getTargetEndpoint(final Collection<Route> routes) {
         final Endpoint managementAddress = this.opts.getManagementAddress();
 
-        return routes == null ? managementAddress
-            : routes.stream().findFirst().map(r -> Endpoint.of(r.getEndpoint().getIp(), managementAddress.getPort()))
-                    .orElse(managementAddress);
+        return routes == null ? managementAddress :
+                routes.stream().findFirst().map(r -> Endpoint.of(r.getEndpoint().getIp(), managementAddress.getPort()))
+                        .orElse(managementAddress);
     }
 
     private String getSql(final String fmtSql, final Object... args) {

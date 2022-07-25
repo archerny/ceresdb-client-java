@@ -251,11 +251,11 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
                             // retrying it, in order to give the server a break.
                             .thenComposeAsync(routes -> write0(rowsToRetry, ctx, retries + 1), this.asyncPool);
 
-                    return noRetryErr.isPresent()
-                        ? rwf.thenApplyAsync(ret -> Utils.combineResult(noRetryErr.get().mapToResult(), ret),
-                                this.asyncPool)
-                        : rwf.thenApplyAsync(ret -> Utils.combineResult(err.getSubOk().mapToResult(), ret),
-                                this.asyncPool);
+                    return noRetryErr.isPresent() ?
+                            rwf.thenApplyAsync(ret -> Utils.combineResult(noRetryErr.get().mapToResult(), ret),
+                                    this.asyncPool) :
+                            rwf.thenApplyAsync(ret -> Utils.combineResult(err.getSubOk().mapToResult(), ret),
+                                    this.asyncPool);
                 }, this.asyncPool);
     }
 

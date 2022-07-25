@@ -61,8 +61,8 @@ public class CeresDBxSqlStatement {
         this.stmtType = stmtType;
 
         this.database = database;
-        this.tables = tables == null || tables.isEmpty() ? DEFAULT_TABLES
-            : Collections.unmodifiableList(new ArrayList<>(tables));
+        this.tables = tables == null || tables.isEmpty() ? DEFAULT_TABLES :
+                Collections.unmodifiableList(new ArrayList<>(tables));
 
         if (parameters != null && parameters.size() > 0) {
             this.parameters = Collections.unmodifiableList(new ArrayList<>(parameters));

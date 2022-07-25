@@ -196,9 +196,9 @@ public final class Utils {
         final int failed = resp.getFailed();
 
         if (code == Result.SUCCESS) {
-            final Set<String> metrics = rows != null && WriteOk.isCollectWroteDetail()
-                ? rows.stream().map(Rows::getMetric).collect(Collectors.toSet())
-                : null;
+            final Set<String> metrics = rows != null && WriteOk.isCollectWroteDetail() ?
+                    rows.stream().map(Rows::getMetric).collect(Collectors.toSet()) :
+                    null;
             return WriteOk.ok(success, failed, metrics).mapToResult();
         } else {
             return Err.writeErr(code, msg, to, rows).mapToResult();
