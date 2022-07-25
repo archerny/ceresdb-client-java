@@ -46,13 +46,13 @@ import com.ceresdb.util.TestUtil;
 @RunWith(value = MockitoJUnitRunner.class)
 public class CeresDBxClientTest {
 
-    private static final ReferenceFieldUpdater<CeresDBxClient, WriteClient> WC_UPDATER = Updaters   //
+    private static final ReferenceFieldUpdater<CeresDBxClient, WriteClient> WC_UPDATER = Updaters //
             .newReferenceFieldUpdater(CeresDBxClient.class, "writeClient");
 
-    private CeresDBxClient                                                  client;
-    private CeresDBxOptions                                                 opts;
+    private CeresDBxClient  client;
+    private CeresDBxOptions opts;
     @Mock
-    private WriteClient                                                     writeClient;
+    private WriteClient     writeClient;
 
     @Before
     public void before() {

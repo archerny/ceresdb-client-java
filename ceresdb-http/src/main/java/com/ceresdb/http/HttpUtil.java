@@ -36,22 +36,20 @@ import okhttp3.RequestBody;
  */
 public class HttpUtil {
 
-    public static final String        PROTOCOL         = "http";
+    public static final String PROTOCOL = "http";
 
-    private static final long         READ_TIMEOUT_MS  = SystemPropertyUtil.getLong(OptKeys.HTTP_READ_TIMEOUT_MS,
-            10000);
-    private static final long         WRITE_TIMEOUT_MS = SystemPropertyUtil.getLong(OptKeys.HTTP_WRITE_TIMEOUT_MS,
-            10000);
+    private static final long READ_TIMEOUT_MS  = SystemPropertyUtil.getLong(OptKeys.HTTP_READ_TIMEOUT_MS, 10000);
+    private static final long WRITE_TIMEOUT_MS = SystemPropertyUtil.getLong(OptKeys.HTTP_WRITE_TIMEOUT_MS, 10000);
 
-    private static final MediaType    JSON_MEDIA_TYPE  = MediaType.parse("application/json; charset=utf-8");
+    private static final MediaType JSON_MEDIA_TYPE = MediaType.parse("application/json; charset=utf-8");
 
     // The singleton HTTP client.
     //
     // Shutdown isn’t necessary, the threads and connections that
     // are held will be released automatically if they remain idle.
-    private static final OkHttpClient OK_HTTP_CLIENT   = new OkHttpClient.Builder()                               //
-            .readTimeout(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS)                                                  //
-            .writeTimeout(WRITE_TIMEOUT_MS, TimeUnit.MILLISECONDS)                                                //
+    private static final OkHttpClient OK_HTTP_CLIENT = new OkHttpClient.Builder() //
+            .readTimeout(READ_TIMEOUT_MS, TimeUnit.MILLISECONDS) //
+            .writeTimeout(WRITE_TIMEOUT_MS, TimeUnit.MILLISECONDS) //
             .build();
 
     public static OkHttpClient httpClient() {

@@ -89,47 +89,44 @@ import com.netflix.concurrency.limits.MetricRegistry;
  */
 public class GrpcClient implements RpcClient {
 
-    private static final Logger                LOG                   = LoggerFactory.getLogger(GrpcClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(GrpcClient.class);
 
-    private static final SharedThreadPool      SHARED_ASYNC_POOL     = new SharedThreadPool(
+    private static final SharedThreadPool SHARED_ASYNC_POOL = new SharedThreadPool(
             new ObjectPool.Resource<ExecutorService>() {
 
-                                                                                 @Override
-                                                                                 public ExecutorService create() {
-                                                                                     return createDefaultRpcExecutor();
-                                                                                 }
+                @Override
+                public ExecutorService create() {
+                    return createDefaultRpcExecutor();
+                }
 
-                                                                                 @Override
-                                                                                 public void close(final ExecutorService ins) {
-                                                                                     ExecutorServiceHelper
-                                                                                             .shutdownAndAwaitTermination(
-                                                                                                     ins);
-                                                                                 }
-                                                                             });
+                @Override
+                public void close(final ExecutorService ins) {
+                    ExecutorServiceHelper.shutdownAndAwaitTermination(ins);
+                }
+            });
 
-    private static final int                   CONN_RESET_THRESHOLD  = SystemPropertyUtil
-            .getInt(OptKeys.GRPC_CONN_RESET_THRESHOLD, 3);
-    private static final int                   MAX_SIZE_TO_USE_ARRAY = 8192;
-    private static final String                LIMITER_NAME          = "grpc_call";
-    private static final String                EXECUTOR_NAME         = "grpc_executor";
-    private static final String                REQ_RT                = "req_rt";
-    private static final String                REQ_FAILED            = "req_failed";
-    private static final String                UNARY_CALL            = "unary-call";
-    private static final String                SERVER_STREAMING_CALL = "server-streaming-call";
-    private static final String                CLIENT_STREAMING_CALL = "client-streaming-call";
+    private static final int    CONN_RESET_THRESHOLD  = SystemPropertyUtil.getInt(OptKeys.GRPC_CONN_RESET_THRESHOLD, 3);
+    private static final int    MAX_SIZE_TO_USE_ARRAY = 8192;
+    private static final String LIMITER_NAME          = "grpc_call";
+    private static final String EXECUTOR_NAME         = "grpc_executor";
+    private static final String REQ_RT                = "req_rt";
+    private static final String REQ_FAILED            = "req_failed";
+    private static final String UNARY_CALL            = "unary-call";
+    private static final String SERVER_STREAMING_CALL = "server-streaming-call";
+    private static final String CLIENT_STREAMING_CALL = "client-streaming-call";
 
-    private final Map<Endpoint, IdChannel>     managedChannelPool    = new ConcurrentHashMap<>();
-    private final Map<Endpoint, AtomicInteger> transientFailures     = new ConcurrentHashMap<>();
-    private final List<ClientInterceptor>      interceptors          = new CopyOnWriteArrayList<>();
-    private final AtomicBoolean                started               = new AtomicBoolean(false);
-    private final List<ConnectionObserver>     connectionObservers   = new CopyOnWriteArrayList<>();
+    private final Map<Endpoint, IdChannel>     managedChannelPool  = new ConcurrentHashMap<>();
+    private final Map<Endpoint, AtomicInteger> transientFailures   = new ConcurrentHashMap<>();
+    private final List<ClientInterceptor>      interceptors        = new CopyOnWriteArrayList<>();
+    private final AtomicBoolean                started             = new AtomicBoolean(false);
+    private final List<ConnectionObserver>     connectionObservers = new CopyOnWriteArrayList<>();
     private final MarshallerRegistry           marshallerRegistry;
 
-    private String                             tenant                = "none";
-    private String                             defaultChildTenant    = "none";
-    private RpcOptions                         opts;
-    private ExecutorService                    asyncPool;
-    private boolean                            useSharedAsyncPool;
+    private String          tenant             = "none";
+    private String          defaultChildTenant = "none";
+    private RpcOptions      opts;
+    private ExecutorService asyncPool;
+    private boolean         useSharedAsyncPool;
 
     public GrpcClient(MarshallerRegistry marshallerRegistry) {
         this.marshallerRegistry = marshallerRegistry;

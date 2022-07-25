@@ -45,10 +45,9 @@ import com.netflix.concurrency.limits.Limiter;
  */
 public class ClientRequestLimitInterceptor implements ClientInterceptor {
 
-    private static final Status             LIMIT_EXCEEDED_STATUS = Status.UNAVAILABLE
-            .withDescription("Client limit reached");
+    private static final Status LIMIT_EXCEEDED_STATUS = Status.UNAVAILABLE.withDescription("Client limit reached");
 
-    private static final AtomicBoolean      LIMIT_SWITCH          = new AtomicBoolean(true);
+    private static final AtomicBoolean LIMIT_SWITCH = new AtomicBoolean(true);
 
     private final Limiter<RequestLimitCtx>  limiter;
     private final Function<String, Boolean> filter;

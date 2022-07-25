@@ -64,10 +64,10 @@ public class WriteClient implements Write, Lifecycle<WriteOptions>, Display {
 
     private static final Logger LOG = LoggerFactory.getLogger(WriteClient.class);
 
-    private WriteOptions        opts;
-    private RouterClient        routerClient;
-    private Executor            asyncPool;
-    private WriteLimiter        writeLimiter;
+    private WriteOptions opts;
+    private RouterClient routerClient;
+    private Executor     asyncPool;
+    private WriteLimiter writeLimiter;
 
     static final class InnerMetrics {
         static final Histogram WRITE_ROWS_SUCCESS    = MetricsUtil.histogram("write_rows_success_num");

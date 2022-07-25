@@ -40,7 +40,7 @@ import com.ceresdb.common.util.MetricsUtil;
 @SPI(priority = 97)
 public class MetricsSignalHandler implements SignalHandler {
 
-    private static final Logger LOG       = LoggerFactory.getLogger(MetricsSignalHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MetricsSignalHandler.class);
 
     private static final String BASE_NAME = "CeresDB_client_metrics.log";
 

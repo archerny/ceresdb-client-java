@@ -65,9 +65,9 @@ import com.google.protobuf.ByteStringHelper;
  */
 public final class Utils {
 
-    public static final String                    DB_NAME = "CeresDB";
+    public static final String DB_NAME = "CeresDB";
 
-    private static final AtomicBoolean            RW_LOGGING;
+    private static final AtomicBoolean RW_LOGGING;
 
     private static final int                      REPORT_PERIOD_MIN;
     private static final ScheduledExecutorService DISPLAY;

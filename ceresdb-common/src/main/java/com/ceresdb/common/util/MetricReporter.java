@@ -219,7 +219,7 @@ public class MetricReporter {
         }
     }
 
-    private static final int           CONSOLE_WIDTH = 80;
+    private static final int CONSOLE_WIDTH = 80;
 
     private final MetricRegistry       registry;
     private final Set<MetricAttribute> disabledMetricAttributes;

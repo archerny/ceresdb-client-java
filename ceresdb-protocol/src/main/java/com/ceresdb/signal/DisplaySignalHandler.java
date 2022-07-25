@@ -43,7 +43,7 @@ import com.ceresdb.common.util.Files;
 @SPI(priority = 98)
 public class DisplaySignalHandler implements SignalHandler {
 
-    private static final Logger LOG       = LoggerFactory.getLogger(DisplaySignalHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DisplaySignalHandler.class);
 
     private static final String BASE_NAME = "CeresDB_client_display.log";
 

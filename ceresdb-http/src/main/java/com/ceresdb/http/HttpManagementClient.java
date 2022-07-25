@@ -54,17 +54,17 @@ import okhttp3.ResponseBody;
  */
 public class HttpManagementClient implements Management {
 
-    private static final Logger LOG           = LoggerFactory.getLogger(HttpManagementClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(HttpManagementClient.class);
 
     private static final String AFFECTED_ROWS = "affected_rows";
     private static final String ROWS          = "rows";
 
-    private final AtomicBoolean started       = new AtomicBoolean(false);
+    private final AtomicBoolean started = new AtomicBoolean(false);
 
-    private ManagementOptions   opts;
+    private ManagementOptions opts;
 
-    private Tenant              tenant;
-    private RouterClient        routerClient;
+    private Tenant       tenant;
+    private RouterClient routerClient;
 
     @Override
     public boolean init(final ManagementOptions opts) {

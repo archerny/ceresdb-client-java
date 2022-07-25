@@ -63,30 +63,29 @@ import com.codahale.metrics.Timer;
  */
 public class RouterClient implements Lifecycle<RouterOptions>, Display, Iterable<Route> {
 
-    private static final Logger                LOG                       = LoggerFactory.getLogger(RouterClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(RouterClient.class);
 
     // I don't think they needs to be open to user configuration, so I'll just put a fixed value here
-    private static final float                 CLEAN_CACHE_THRESHOLD     = 0.75f;
-    private static final float                 CLEAN_THRESHOLD           = 0.1f;
-    private static final int                   MAX_CONTINUOUS_GC_TIMES   = 3;
+    private static final float CLEAN_CACHE_THRESHOLD   = 0.75f;
+    private static final float CLEAN_THRESHOLD         = 0.1f;
+    private static final int   MAX_CONTINUOUS_GC_TIMES = 3;
 
-    private static final int                   ITEM_COUNT_EACH_REFRESH   = 512;
-    private static final long                  BLOCKING_ROUTE_TIMEOUT_MS = 3000;
+    private static final int  ITEM_COUNT_EACH_REFRESH   = 512;
+    private static final long BLOCKING_ROUTE_TIMEOUT_MS = 3000;
 
-    private static final SharedScheduledPool   CLEANER_POOL              = Utils
-            .getSharedScheduledPool("route_cache_cleaner", 1);
-    private static final SharedScheduledPool   REFRESHER_POOL            = Utils
-            .getSharedScheduledPool("route_cache_refresher", Math.min(4, Cpus.cpus()));
+    private static final SharedScheduledPool CLEANER_POOL   = Utils.getSharedScheduledPool("route_cache_cleaner", 1);
+    private static final SharedScheduledPool REFRESHER_POOL = Utils.getSharedScheduledPool("route_cache_refresher",
+            Math.min(4, Cpus.cpus()));
 
-    private ScheduledExecutorService           cleaner;
-    private ScheduledExecutorService           refresher;
+    private ScheduledExecutorService cleaner;
+    private ScheduledExecutorService refresher;
 
-    private RouterOptions                      opts;
-    private RpcClient                          rpcClient;
-    private RouterByMetrics                    router;
-    private InnerMetrics                       metrics;
+    private RouterOptions   opts;
+    private RpcClient       rpcClient;
+    private RouterByMetrics router;
+    private InnerMetrics    metrics;
 
-    private final ConcurrentMap<String, Route> routeCache                = new ConcurrentHashMap<>();
+    private final ConcurrentMap<String, Route> routeCache = new ConcurrentHashMap<>();
 
     static final class InnerMetrics {
         final Histogram refreshedSize;

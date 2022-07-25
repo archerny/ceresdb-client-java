@@ -28,7 +28,7 @@ import com.ceresdb.rpc.RpcFactoryProvider;
  */
 public class RpcServiceRegister {
 
-    private static final double WRITE_LIMIT_PERCENT     = writeLimitPercent();
+    private static final double WRITE_LIMIT_PERCENT = writeLimitPercent();
 
     private static final String STORAGE_METHOD_TEMPLATE = "storage.StorageService/%s";
 

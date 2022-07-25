@@ -53,10 +53,10 @@ public class QueryClient implements Query, Lifecycle<QueryOptions>, Display {
 
     private static final Logger LOG = LoggerFactory.getLogger(QueryClient.class);
 
-    private QueryOptions        opts;
-    private RouterClient        routerClient;
-    private Executor            asyncPool;
-    private QueryLimiter        queryLimiter;
+    private QueryOptions opts;
+    private RouterClient routerClient;
+    private Executor     asyncPool;
+    private QueryLimiter queryLimiter;
 
     static final class InnerMetrics {
         static final Histogram READ_ROW_COUNT = MetricsUtil.histogram("read_row_count");

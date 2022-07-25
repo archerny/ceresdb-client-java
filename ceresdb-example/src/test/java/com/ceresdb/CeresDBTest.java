@@ -60,12 +60,12 @@ import com.ceresdb.rpc.RpcOptions;
  */
 public class CeresDBTest {
 
-    private static final Logger LOG             = LoggerFactory.getLogger(CeresDBTest.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CeresDBTest.class);
 
-    private String              TEST_TABLE_NAME = "all_type_test_table_%d";
+    private String TEST_TABLE_NAME = "all_type_test_table_%d";
 
-    private CeresDBxOptions     opts;
-    private CeresDBxClient      client;
+    private CeresDBxOptions opts;
+    private CeresDBxClient  client;
 
     @Before
     public void before() {

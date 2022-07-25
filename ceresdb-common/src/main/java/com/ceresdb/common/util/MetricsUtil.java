@@ -38,7 +38,7 @@ import com.codahale.metrics.Timer;
  */
 public final class MetricsUtil {
 
-    private static final Logger            LOG             = LoggerFactory.getLogger(MetricsUtil.class);
+    private static final Logger LOG = LoggerFactory.getLogger(MetricsUtil.class);
 
     private static final MetricRegistry    METRIC_REGISTRY = new MetricRegistry();
     private static final ScheduledReporter SCHEDULED_REPORTER;

@@ -43,7 +43,7 @@ import com.ceresdb.common.util.Files;
 @SPI(priority = 96)
 public class ShowRouteCacheSignalHandler implements SignalHandler {
 
-    private static final Logger LOG       = LoggerFactory.getLogger(ShowRouteCacheSignalHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ShowRouteCacheSignalHandler.class);
 
     private static final String BASE_NAME = "CeresDB_route_cache.log";
 

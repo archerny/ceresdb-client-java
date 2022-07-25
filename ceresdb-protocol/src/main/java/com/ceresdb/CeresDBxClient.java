@@ -62,7 +62,7 @@ import com.codahale.metrics.Meter;
  */
 public class CeresDBxClient implements Write, Query, Lifecycle<CeresDBxOptions>, Display {
 
-    private static final Logger                       LOG         = LoggerFactory.getLogger(CeresDBxClient.class);
+    private static final Logger LOG = LoggerFactory.getLogger(CeresDBxClient.class);
 
     private static final Map<Integer, CeresDBxClient> INSTANCES   = new ConcurrentHashMap<>();
     private static final AtomicInteger                ID          = new AtomicInteger(0);
@@ -70,19 +70,19 @@ public class CeresDBxClient implements Write, Query, Lifecycle<CeresDBxOptions>,
     private static final String                       VERSION_KEY = "client.version";
     private static final String                       VERSION     = loadVersion();
 
-    private final int                                 id;
-    private final AtomicBoolean                       started     = new AtomicBoolean(false);
+    private final int           id;
+    private final AtomicBoolean started = new AtomicBoolean(false);
 
-    private CeresDBxOptions                           opts;
-    private RouterClient                              routerClient;
-    private WriteClient                               writeClient;
-    private QueryClient                               queryClient;
+    private CeresDBxOptions opts;
+    private RouterClient    routerClient;
+    private WriteClient     writeClient;
+    private QueryClient     queryClient;
     // CeresDBxClient is only intended to manage the instance and does not
     // intend to broker any of its behavior
-    private Management                                management;
+    private Management management;
     // Note: We do not close it to free resources, as we view it as shared
-    private Executor                                  asyncWritePool;
-    private Executor                                  asyncReadPool;
+    private Executor asyncWritePool;
+    private Executor asyncReadPool;
 
     static {
         // load all signal handlers
@@ -388,9 +388,9 @@ public class CeresDBxClient implements Write, Query, Lifecycle<CeresDBxOptions>,
 
         private static final int MAX_BUF_SIZE = 1024 << 3;
 
-        private final Logger     logger;
+        private final Logger logger;
 
-        private StringBuilder    buf          = new StringBuilder();
+        private StringBuilder buf = new StringBuilder();
 
         LogPrinter(Logger logger) {
             this.logger = logger;

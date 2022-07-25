@@ -44,15 +44,15 @@ import java.util.function.Function;
  */
 public class VegasLimit extends AbstractLimit {
 
-    private static final Logger                     LOG   = LoggerFactory.getLogger(VegasLimit.class);
+    private static final Logger LOG = LoggerFactory.getLogger(VegasLimit.class);
 
     private static final Function<Integer, Integer> LOG10 = Log10RootFunction.create(0);
 
     public static class Builder {
-        private int                        initialLimit     = 20;
-        private int                        maxConcurrency   = 1000;
-        private MetricRegistry             registry         = EmptyMetricRegistry.INSTANCE;
-        private double                     smoothing        = 1.0;
+        private int            initialLimit   = 20;
+        private int            maxConcurrency = 1000;
+        private MetricRegistry registry       = EmptyMetricRegistry.INSTANCE;
+        private double         smoothing      = 1.0;
 
         private Function<Integer, Integer> alphaFunc        = (limit) -> 3 * LOG10.apply(limit);
         private Function<Integer, Integer> betaFunc         = (limit) -> 6 * LOG10.apply(limit);
@@ -153,14 +153,14 @@ public class VegasLimit extends AbstractLimit {
     /**
      * Estimated concurrency limit based on our algorithm
      */
-    private volatile double                  estimatedLimit;
+    private volatile double estimatedLimit;
 
-    private volatile long                    rtt_noload = 0;
+    private volatile long rtt_noload = 0;
 
     /**
      * Maximum allowed limit providing an upper bound failsafe
      */
-    private final int                        maxLimit;
+    private final int maxLimit;
 
     private final double                     smoothing;
     private final Function<Integer, Integer> alphaFunc;

@@ -31,17 +31,17 @@ public class CeresDBxSqlStatement {
     public static final List<Integer>        DEFAULT_PARAMETERS = Collections.emptyList();
     public static final Map<String, Integer> DEFAULT_POSITIONS  = Collections.emptyMap();
 
-    public static final String               KEYWORD_EXISTS     = "EXISTS";
-    public static final String               KEYWORD_REPLACE    = "REPLACE";
-    public static final String               KEYWORD_TOTALS     = "TOTALS";
-    public static final String               KEYWORD_VALUES     = "VALUES";
+    public static final String KEYWORD_EXISTS  = "EXISTS";
+    public static final String KEYWORD_REPLACE = "REPLACE";
+    public static final String KEYWORD_TOTALS  = "TOTALS";
+    public static final String KEYWORD_VALUES  = "VALUES";
 
-    private final String                     sql;
-    private final StatementType              stmtType;
-    private final String                     database;
-    private final List<String>               tables;
-    private final List<Integer>              parameters;
-    private final Map<String, Integer>       positions;
+    private final String               sql;
+    private final StatementType        stmtType;
+    private final String               database;
+    private final List<String>         tables;
+    private final List<Integer>        parameters;
+    private final Map<String, Integer> positions;
 
     public CeresDBxSqlStatement(String sql) {
         this(sql, StatementType.UNKNOWN, null, null, null, null);
